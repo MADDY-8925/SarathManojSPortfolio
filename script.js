@@ -23,15 +23,253 @@ document.addEventListener('DOMContentLoaded', () => {
         const next = current === 'dark' ? 'light' : 'dark';
         setTheme(next);
     });
-    // ===================== PRELOADER =====================
+    // ===================== INTERACTIVE MESMERIZING PRELOADER =====================
     const preloader = document.getElementById('preloader');
+    const preloaderCanvas = document.getElementById('preloaderCanvas');
+    const preloaderInner = document.getElementById('preloaderInner');
+    const enterPortfolioBtn = document.getElementById('enterPortfolioBtn');
+    const glowOrb = document.querySelector('.preloader-glow-orb');
 
-    // Wait for signature animation to complete (draw + fill + flourish + subtitle ≈ 4s)
-    setTimeout(() => {
-        preloader.classList.add('loaded');
-        document.body.classList.add('loaded');
-        initAnimations();
-    }, 4200);
+    if (preloaderCanvas && preloader) {
+        const ctx = preloaderCanvas.getContext('2d');
+        let width = preloaderCanvas.width = window.innerWidth;
+        let height = preloaderCanvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            if (!preloader.classList.contains('loaded')) {
+                width = preloaderCanvas.width = window.innerWidth;
+                height = preloaderCanvas.height = window.innerHeight;
+            }
+        });
+
+        // Particle System
+        const particles = [];
+        const shockwaves = [];
+        const trails = [];
+        const numParticles = Math.min(Math.floor((width * height) / 12000), 75);
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.8;
+                this.vy = (Math.random() - 0.5) * 0.8;
+                this.radius = Math.random() * 2 + 1;
+                this.baseAlpha = Math.random() * 0.5 + 0.2;
+                this.alpha = this.baseAlpha;
+                this.goldHue = Math.random() > 0.3 ? '201, 169, 110' : '212, 175, 55';
+            }
+
+            update(mouse) {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse interaction - gentle attraction & lighting up
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 180) {
+                        const force = (180 - dist) / 180;
+                        this.x += (dx / dist) * force * 1.5;
+                        this.y += (dy / dist) * force * 1.5;
+                        this.alpha = Math.min(1, this.baseAlpha + force * 0.6);
+                    } else {
+                        this.alpha += (this.baseAlpha - this.alpha) * 0.05;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.goldHue}, ${this.alpha})`;
+                ctx.shadowColor = `rgba(${this.goldHue}, 0.8)`;
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        // Mouse Trail Sparks
+        class TrailParticle {
+            constructor(x, y) {
+                this.x = x + (Math.random() - 0.5) * 10;
+                this.y = y + (Math.random() - 0.5) * 10;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2 - 0.5;
+                this.radius = Math.random() * 2.5 + 1;
+                this.life = 1;
+                this.decay = Math.random() * 0.02 + 0.015;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.life -= this.decay;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * this.life, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(212, 175, 55, ${this.life})`;
+                ctx.shadowColor = 'rgba(201, 169, 110, 0.9)';
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        // Shockwave Ring
+        class Shockwave {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.radius = 5;
+                this.maxRadius = Math.max(width, height) * 0.5;
+                this.alpha = 1;
+                this.speed = 8;
+            }
+
+            update() {
+                this.radius += this.speed;
+                this.alpha = Math.max(0, 1 - this.radius / this.maxRadius);
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(201, 169, 110, ${this.alpha * 0.6})`;
+                ctx.lineWidth = 2;
+                ctx.shadowColor = 'rgba(201, 169, 110, 0.8)';
+                ctx.shadowBlur = 15;
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        const preloaderMouse = { x: null, y: null };
+        let animFrameId = null;
+
+        // Interaction listeners
+        preloader.addEventListener('mousemove', (e) => {
+            preloaderMouse.x = e.clientX;
+            preloaderMouse.y = e.clientY;
+
+            // Move background glow orb
+            if (glowOrb) {
+                glowOrb.style.transform = `translate(${e.clientX - window.innerWidth / 2}px, ${e.clientY - window.innerHeight / 2}px)`;
+            }
+
+            // 3D Tilt Effect on preloader inner
+            if (preloaderInner) {
+                const tiltX = (e.clientY / window.innerHeight - 0.5) * -15;
+                const tiltY = (e.clientX / window.innerWidth - 0.5) * 15;
+                preloaderInner.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+            }
+
+            // Add spark trails
+            for (let i = 0; i < 2; i++) {
+                trails.push(new TrailParticle(e.clientX, e.clientY));
+            }
+        });
+
+        preloader.addEventListener('mouseleave', () => {
+            preloaderMouse.x = null;
+            preloaderMouse.y = null;
+            if (preloaderInner) preloaderInner.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
+
+        // Click Shockwave Burst
+        preloader.addEventListener('click', (e) => {
+            if (e.target.closest('#enterPortfolioBtn')) return; // handled by button handler
+            shockwaves.push(new Shockwave(e.clientX, e.clientY));
+            for (let i = 0; i < 20; i++) {
+                trails.push(new TrailParticle(e.clientX, e.clientY));
+            }
+        });
+
+        // Main Preloader Canvas Render Loop
+        function renderPreloaderCanvas() {
+            if (preloader.classList.contains('loaded')) {
+                cancelAnimationFrame(animFrameId);
+                return;
+            }
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw Constellation Lines
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 130) {
+                        const alpha = (1 - dist / 130) * 0.25;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(201, 169, 110, ${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            // Update & Draw Particles
+            particles.forEach(p => {
+                p.update(preloaderMouse);
+                p.draw();
+            });
+
+            // Update & Draw Trails
+            for (let i = trails.length - 1; i >= 0; i--) {
+                trails[i].update();
+                trails[i].draw();
+                if (trails[i].life <= 0) trails.splice(i, 1);
+            }
+
+            // Update & Draw Shockwaves
+            for (let i = shockwaves.length - 1; i >= 0; i--) {
+                shockwaves[i].update();
+                shockwaves[i].draw();
+                if (shockwaves[i].alpha <= 0) shockwaves.splice(i, 1);
+            }
+
+            animFrameId = requestAnimationFrame(renderPreloaderCanvas);
+        }
+
+        renderPreloaderCanvas();
+    }
+
+    // Dismiss Preloader Handler
+    function dismissPreloader() {
+        if (!preloader.classList.contains('loaded')) {
+            preloader.classList.add('loaded');
+            document.body.classList.add('loaded');
+            initAnimations();
+        }
+    }
+
+    if (enterPortfolioBtn) {
+        enterPortfolioBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dismissPreloader();
+        });
+    }
 
     // ===================== CUSTOM CURSOR =====================
     const cursor = document.getElementById('cursor');
