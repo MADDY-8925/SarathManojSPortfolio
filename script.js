@@ -141,22 +141,27 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.toggle('menu-open');
     });
 
-    // Smooth scroll with page transition
+    // Smooth scroll with page transition for hash anchor links
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                e.preventDefault();
+                const targetId = href.substring(1);
+                const targetSection = document.getElementById(targetId);
 
-            // Close mobile menu
-            navToggle.classList.remove('active');
-            mobileMenu.classList.remove('active');
-            document.body.classList.remove('menu-open');
+                // Close mobile menu
+                navToggle.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                document.body.classList.remove('menu-open');
 
-            // Trigger page transition
-            triggerPageTransition(() => {
-                targetSection.scrollIntoView({ behavior: 'auto' });
-            });
+                if (targetSection) {
+                    // Trigger page transition
+                    triggerPageTransition(() => {
+                        targetSection.scrollIntoView({ behavior: 'auto' });
+                    });
+                }
+            }
         });
     });
 
