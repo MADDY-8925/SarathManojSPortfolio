@@ -23,256 +23,44 @@ document.addEventListener('DOMContentLoaded', () => {
         const next = current === 'dark' ? 'light' : 'dark';
         setTheme(next);
     });
-    // ===================== FRESH ARCHITECTURAL CAD BLUEPRINT PRELOADER =====================
+    // ===================== ULTRA-ELEGANT LUXURY PRELOADER =====================
     const preloader = document.getElementById('preloader');
-    const preloaderCanvas = document.getElementById('preloaderCanvas');
-    const preloaderInner = document.getElementById('preloaderInner');
-    const hudCoords = document.getElementById('hudCoords');
-    const loaderPercent = document.getElementById('loaderPercent');
     const loaderBar = document.getElementById('loaderBar');
-    const loaderStatus = document.getElementById('loaderStatus');
+    const preloaderAmbient = document.getElementById('preloaderAmbient');
 
-    if (preloaderCanvas && preloader) {
-        const ctx = preloaderCanvas.getContext('2d');
-        let width = preloaderCanvas.width = window.innerWidth;
-        let height = preloaderCanvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
-            if (!preloader.classList.contains('loaded')) {
-                width = preloaderCanvas.width = window.innerWidth;
-                height = preloaderCanvas.height = window.innerHeight;
-            }
-        });
-
-        // 3D Architectural Wireframe Structure Definition
-        const vertices = [
-            // Outer Prism
-            {x: -1, y: -1, z: -1}, {x: 1, y: -1, z: -1},
-            {x: 1, y: 1, z: -1},  {x: -1, y: 1, z: -1},
-            {x: -1, y: -1, z: 1},  {x: 1, y: -1, z: 1},
-            {x: 1, y: 1, z: 1},   {x: -1, y: 1, z: 1},
-            // Inner Core
-            {x: -0.5, y: -0.5, z: -0.5}, {x: 0.5, y: -0.5, z: -0.5},
-            {x: 0.5, y: 0.5, z: -0.5},  {x: -0.5, y: 0.5, z: -0.5},
-            {x: -0.5, y: -0.5, z: 0.5},  {x: 0.5, y: -0.5, z: 0.5},
-            {x: 0.5, y: 0.5, z: 0.5},   {x: -0.5, y: 0.5, z: 0.5}
-        ];
-
-        const edges = [
-            // Outer Box Edges
-            [0,1], [1,2], [2,3], [3,0],
-            [4,5], [5,6], [6,7], [7,4],
-            [0,4], [1,5], [2,6], [3,7],
-            // Inner Box Edges
-            [8,9], [9,10], [10,11], [11,8],
-            [12,13], [13,14], [14,15], [15,12],
-            [8,12], [9,13], [10,14], [11,15],
-            // Connecting Struts
-            [0,8], [1,9], [2,10], [3,11],
-            [4,12], [5,13], [6,14], [7,15]
-        ];
-
-        let rotX = 0.4, rotY = 0.6;
-        let targetRotX = 0.4, targetRotY = 0.6;
-        const cadPulses = [];
-        const mouse = { x: width / 2, y: height / 2 };
-
-        // Mouse interactions
+    // Soft subtle ambient glow following cursor
+    if (preloader && preloaderAmbient) {
         preloader.addEventListener('mousemove', (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
-
-            // HUD Coordinate Readout
-            if (hudCoords) {
-                hudCoords.textContent = `CURSOR: X: ${String(Math.round(e.clientX)).padStart(3, '0')} | Y: ${String(Math.round(e.clientY)).padStart(3, '0')}`;
-            }
-
-            // Tilt 3D Wireframe based on cursor
-            targetRotY = 0.6 + (e.clientX / width - 0.5) * 1.5;
-            targetRotX = 0.4 + (e.clientY / height - 0.5) * 1.5;
-
-            // Subtle 3D Tilt on Inner Container
-            if (preloaderInner) {
-                const tiltX = (e.clientY / height - 0.5) * -10;
-                const tiltY = (e.clientX / width - 0.5) * 10;
-                preloaderInner.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
-            }
+            const x = e.clientX - window.innerWidth / 2;
+            const y = e.clientY - window.innerHeight / 2;
+            preloaderAmbient.style.transform = `translate(calc(-50% + ${x * 0.15}px), calc(-50% + ${y * 0.15}px))`;
         });
-
-        // Click Ripple Pulse
-        preloader.addEventListener('click', (e) => {
-            cadPulses.push({
-                x: e.clientX,
-                y: e.clientY,
-                r: 0,
-                maxR: Math.max(width, height) * 0.4,
-                alpha: 1
-            });
-        });
-
-        // 3D Point Projection Helper
-        function project3D(x, y, z) {
-            // Apply rotations
-            const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
-            const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
-
-            // Y rotation
-            let x1 = x * cosY - z * sinY;
-            let z1 = z * cosY + x * sinY;
-            let y1 = y;
-
-            // X rotation
-            let y2 = y1 * cosX - z1 * sinX;
-            let z2 = z1 * cosX + y1 * sinX;
-
-            const fov = 350;
-            const distance = 4;
-            const scale = fov / (distance + z2);
-
-            return {
-                x: width / 2 + x1 * scale * 1.6,
-                y: height / 2 + y2 * scale * 1.6
-            };
-        }
-
-        let animId;
-        function renderCADCanvas() {
-            if (preloader.classList.contains('loaded')) {
-                cancelAnimationFrame(animId);
-                return;
-            }
-
-            ctx.clearRect(0, 0, width, height);
-
-            // Smooth 3D Rotation damping
-            rotX += (targetRotX - rotX) * 0.05;
-            rotY += (targetRotY - rotY) * 0.05;
-            rotY += 0.005; // gentle continuous rotation
-
-            // 1. Draw Architectural Blueprint CAD Grid
-            const gridSize = 40;
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
-            ctx.lineWidth = 1;
-            for (let x = 0; x < width; x += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(x, 0);
-                ctx.lineTo(x, height);
-                ctx.stroke();
-            }
-            for (let y = 0; y < height; y += gridSize) {
-                ctx.beginPath();
-                ctx.moveTo(0, y);
-                ctx.lineTo(width, y);
-                ctx.stroke();
-            }
-
-            // 2. Draw Interactive CAD Mouse Crosshairs
-            if (mouse.x !== null) {
-                ctx.strokeStyle = 'rgba(201, 169, 110, 0.15)';
-                ctx.setLineDash([4, 4]);
-                ctx.beginPath();
-                ctx.moveTo(mouse.x, 0);
-                ctx.lineTo(mouse.x, height);
-                ctx.moveTo(0, mouse.y);
-                ctx.lineTo(width, mouse.y);
-                ctx.stroke();
-                ctx.setLineDash([]);
-            }
-
-            // 3. Draw Click Pulse Rings
-            for (let i = cadPulses.length - 1; i >= 0; i--) {
-                const pulse = cadPulses[i];
-                pulse.r += 6;
-                pulse.alpha = Math.max(0, 1 - pulse.r / pulse.maxR);
-
-                ctx.beginPath();
-                ctx.arc(pulse.x, pulse.y, pulse.r, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(201, 169, 110, ${pulse.alpha * 0.5})`;
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
-
-                if (pulse.alpha <= 0) cadPulses.splice(i, 1);
-            }
-
-            // 4. Project & Render 3D Architectural Wireframe Structure
-            const projected = vertices.map(v => project3D(v.x, v.y, v.z));
-
-            // Render Edges
-            ctx.lineWidth = 1.5;
-            edges.forEach(([i1, i2]) => {
-                const p1 = projected[i1];
-                const p2 = projected[i2];
-
-                ctx.beginPath();
-                ctx.moveTo(p1.x, p1.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.strokeStyle = 'rgba(201, 169, 110, 0.4)';
-                ctx.stroke();
-            });
-
-            // Render Node Points
-            projected.forEach(p => {
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-                ctx.fillStyle = '#c9a96e';
-                ctx.shadowColor = '#c9a96e';
-                ctx.shadowBlur = 8;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            });
-
-            animId = requestAnimationFrame(renderCADCanvas);
-        }
-
-        renderCADCanvas();
     }
 
     // Dismiss Preloader Helper
     function dismissPreloader() {
-        if (!preloader.classList.contains('loaded')) {
+        if (preloader && !preloader.classList.contains('loaded')) {
             preloader.classList.add('loaded');
             document.body.classList.add('loaded');
             initAnimations();
         }
     }
 
-    // Smooth Architectural Progress Simulation (0% -> 100%)
-    let progress = 0;
-    const progressStartTime = performance.now();
-    const duration = 2400; // 2.4 seconds smooth loading
-
-    const statusSteps = [
-        { pct: 0, text: 'INITIALIZING CAD WORKSPACE...' },
-        { pct: 30, text: 'COMPILING BIM MODELS & SCHEMATICS...' },
-        { pct: 65, text: 'RENDERING PHOTOREALISTIC ENVIRONMENTS...' },
-        { pct: 90, text: 'FINALIZING DESIGN SYSTEM...' },
-        { pct: 100, text: 'SYSTEM READY • WELCOME' }
-    ];
+    // Smooth Hairline Progress (1.8s)
+    let progressStartTime = performance.now();
+    const duration = 1800;
 
     function updatePreloaderProgress(time) {
         const elapsed = time - progressStartTime;
         const rawProgress = Math.min(1, elapsed / duration);
-        // Easing cubic out
-        const eased = 1 - Math.pow(1 - rawProgress, 3);
-        progress = Math.round(eased * 100);
+        const eased = 1 - Math.pow(1 - rawProgress, 4); // smooth quart out
 
-        if (loaderPercent) loaderPercent.textContent = String(progress).padStart(2, '0');
-        if (loaderBar) loaderBar.style.width = progress + '%';
-
-        // Update status text
-        if (loaderStatus) {
-            for (let i = statusSteps.length - 1; i >= 0; i--) {
-                if (progress >= statusSteps[i].pct) {
-                    loaderStatus.textContent = statusSteps[i].text;
-                    break;
-                }
-            }
-        }
+        if (loaderBar) loaderBar.style.width = (eased * 100) + '%';
 
         if (rawProgress < 1) {
             requestAnimationFrame(updatePreloaderProgress);
         } else {
-            setTimeout(dismissPreloader, 300);
+            setTimeout(dismissPreloader, 200);
         }
     }
 

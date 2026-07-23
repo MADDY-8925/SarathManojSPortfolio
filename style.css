@@ -160,18 +160,17 @@ img { max-width: 100%; display: block; }
     padding: 0 5%;
 }
 
-/* ===== FRESH ARCHITECTURAL CAD BLUEPRINT PRELOADER ===== */
+/* ===== ULTRA-ELEGANT LUXURY PRELOADER ===== */
 .preloader {
     position: fixed;
     inset: 0;
-    background: #080808;
+    background: #070707;
     z-index: 99999;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    perspective: 1000px;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), visibility 1s ease;
 }
 
 .preloader.loaded {
@@ -180,196 +179,98 @@ img { max-width: 100%; display: block; }
     pointer-events: none;
 }
 
-.preloader-canvas {
+.preloader-ambient {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
-/* HUD Overlay Corners */
-.preloader-hud {
-    position: absolute;
-    inset: 2rem;
-    pointer-events: none;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.hud-corner {
-    font-family: var(--font-heading);
-    font-size: 0.72rem;
-    letter-spacing: 3px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.hud-tl { align-self: flex-start; }
-.hud-tr { position: absolute; top: 0; right: 0; }
-.hud-bl { position: absolute; bottom: 0; left: 0; }
-.hud-br { align-self: flex-end; color: var(--gold); }
-
-.hud-dot {
-    width: 6px;
-    height: 6px;
+    width: 600px;
+    height: 600px;
     border-radius: 50%;
-    background: var(--gold);
-    box-shadow: 0 0 8px var(--gold);
-    display: inline-block;
+    background: radial-gradient(circle, rgba(201, 169, 110, 0.08) 0%, rgba(201, 169, 110, 0) 70%);
+    pointer-events: none;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease-out;
 }
 
 .preloader-inner {
     position: relative;
-    z-index: 4;
-    text-align: center;
-    padding: 2.5rem;
-    max-width: 680px;
-    width: 90%;
-    transform-style: preserve-3d;
-    transition: transform 0.15s ease-out;
-}
-
-/* Brand Section */
-.arch-brand {
-    margin-bottom: 3rem;
-}
-
-.brand-monogram {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 60px;
-    height: 60px;
-    margin-bottom: 1.5rem;
-}
-
-.mono-square {
-    position: absolute;
-    inset: 0;
-    border: 1px solid var(--gold);
-    transform: rotate(45deg);
-    box-shadow: 0 0 15px rgba(201, 169, 110, 0.2);
-    animation: monoRotate 12s linear infinite;
-}
-
-@keyframes monoRotate {
-    0% { transform: rotate(45deg); }
-    100% { transform: rotate(405deg); }
-}
-
-.mono-text {
-    font-family: var(--font-heading);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 4px;
-    color: var(--gold);
-    position: relative;
     z-index: 2;
+    text-align: center;
+    padding: 3rem 2rem;
+    max-width: 600px;
+    width: 100%;
 }
 
-.brand-name {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 800;
-    letter-spacing: 10px;
-    color: var(--text-primary);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    line-height: 1.1;
-}
-
-.brand-divider {
+/* Emblem */
+.luxury-emblem {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin: 1.2rem auto;
-    max-width: 280px;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
-.div-line {
-    flex: 1;
+.emblem-line {
+    width: 40px;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    background: linear-gradient(90deg, transparent, var(--gold));
 }
 
-.div-diamond {
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
-    transform: rotate(45deg);
-    box-shadow: 0 0 8px var(--gold);
+.luxury-emblem .emblem-line:last-child {
+    background: linear-gradient(90deg, var(--gold), transparent);
 }
 
-.brand-role {
+.emblem-initials {
     font-family: var(--font-heading);
-    font-size: 0.78rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 6px;
     color: var(--gold);
-    font-weight: 400;
-    opacity: 0.9;
 }
 
-/* Progress Section */
-.preloader-progress-wrap {
-    margin-top: 2rem;
-}
-
-.progress-number {
+/* Title & Subtitle */
+.luxury-title {
     font-family: var(--font-heading);
-    font-size: 2.8rem;
-    font-weight: 800;
-    color: var(--gold);
-    letter-spacing: 2px;
-    line-height: 1;
-    margin-bottom: 1rem;
-}
-
-.percent-symbol {
-    font-size: 1.4rem;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
     font-weight: 300;
-    margin-left: 2px;
-    opacity: 0.7;
+    letter-spacing: 14px;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    line-height: 1.15;
 }
 
-.progress-track {
+.luxury-subtitle {
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-bottom: 3.5rem;
+}
+
+/* Hairline Progress Bar */
+.luxury-progress-track {
     width: 100%;
-    max-width: 380px;
-    height: 2px;
+    max-width: 220px;
+    height: 1px;
     background: rgba(255, 255, 255, 0.08);
-    margin: 0 auto 1.2rem;
+    margin: 0 auto;
     position: relative;
-    border-radius: 2px;
     overflow: hidden;
 }
 
-.progress-bar {
+.luxury-progress-bar {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 0%;
     background: var(--gold-gradient);
-    box-shadow: 0 0 12px var(--gold);
-    transition: width 0.15s ease-out;
-    border-radius: 2px;
-}
-
-.progress-status {
-    font-family: var(--font-heading);
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    height: 1.2em;
+    box-shadow: 0 0 10px var(--gold);
+    transition: width 0.1s ease-out;
 }
 
 /* ===== CUSTOM CURSOR ===== */
