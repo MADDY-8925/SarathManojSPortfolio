@@ -430,6 +430,38 @@ img { max-width: 100%; display: block; }
     width: 100%;
 }
 
+/* Nav Resume Button */
+.nav-resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.9rem !important;
+    border: 1px solid var(--gold);
+    border-radius: 100px;
+    color: var(--gold) !important;
+    font-weight: 500;
+    transition: all 0.3s ease !important;
+}
+
+.nav-resume-btn::after {
+    display: none !important;
+}
+
+.nav-resume-btn:hover {
+    background: var(--gold);
+    color: var(--bg-primary) !important;
+    box-shadow: 0 0 15px rgba(201, 169, 110, 0.4);
+    transform: translateY(-2px);
+}
+
+.nav-resume-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.nav-resume-btn:hover svg {
+    transform: translate(2px, -2px);
+}
+
 .nav-toggle {
     display: none;
     background: none;
@@ -1217,6 +1249,47 @@ img { max-width: 100%; display: block; }
 }
 
 /* ===== SKILLS SECTION ===== */
+.skills-cta-wrap {
+    text-align: center;
+    margin-top: -1.5rem;
+    margin-bottom: 3.5rem;
+}
+
+.skills-resume-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 2rem;
+    font-family: var(--font-heading);
+    font-size: 0.82rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--gold);
+    border-radius: 100px;
+    font-weight: 600;
+    transition: all 0.4s var(--transition-smooth);
+    box-shadow: 0 0 20px rgba(201, 169, 110, 0.15);
+}
+
+.skills-resume-btn:hover {
+    background: var(--gold);
+    color: var(--bg-primary);
+    box-shadow: 0 0 30px rgba(201, 169, 110, 0.5);
+    transform: translateY(-3px);
+}
+
+.skills-resume-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.skills-resume-btn:hover svg:last-child {
+    transform: translate(3px, -3px);
+}
+
 .skills-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
