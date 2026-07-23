@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Sarath M S — Architectural Designer, Interior Designer & 3D Visualiser based in Abu Dhabi, UAE. Specializing in BIM, facade design, and photorealistic rendering.">
+    <title>SARATH M S | Architectural Designer & 3D Visualiser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="signature-container">
+                <svg class="signature-svg" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Signature text drawn with stroke animation -->
+                    <text class="signature-text signature-first" x="60" y="120" font-family="'Great Vibes', cursive" font-size="82" fill="none" stroke="#c9a96e" stroke-width="1.2">Sarath</text>
+                    <text class="signature-text signature-last" x="300" y="120" font-family="'Great Vibes', cursive" font-size="82" fill="none" stroke="#c9a96e" stroke-width="1.2">Manoj</text>
+                    <!-- Decorative underline flourish -->
+                    <path class="signature-flourish" d="M60,140 Q150,155 300,138 T540,142" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round"/>
+                    <!-- Small dot at the end -->
+                    <circle class="signature-dot" cx="545" cy="142" r="3" fill="#c9a96e" opacity="0"/>
+                </svg>
+            </div>
+            <div class="preloader-subtitle">Architectural Designer</div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Page Transition Overlay -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-layer layer-1"></div>
+        <div class="transition-layer layer-2"></div>
+        <div class="transition-layer layer-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-text">S</span>
+                <span class="logo-dot"></span>
+                <span class="logo-text">M</span>
+                <span class="logo-dot"></span>
+                <span class="logo-text">S</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+                <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+            </div>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <svg class="theme-icon sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="5"/>
+                    <line x1="12" y1="1" x2="12" y2="3"/>
+                    <line x1="12" y1="21" x2="12" y2="23"/>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                    <line x1="1" y1="12" x2="3" y2="12"/>
+                    <line x1="21" y1="12" x2="23" y2="12"/>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                </svg>
+                <svg class="theme-icon moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                </svg>
+            </button>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+                <span class="toggle-bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#experience" class="mobile-link">Experience</a>
+            <a href="#projects" class="mobile-link">Projects</a>
+            <a href="#skills" class="mobile-link">Skills</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </div>
+
+    <!-- Section Indicator -->
+    <div class="section-indicator" id="sectionIndicator">
+        <div class="indicator-dot active" data-target="hero"></div>
+        <div class="indicator-dot" data-target="about"></div>
+        <div class="indicator-dot" data-target="experience"></div>
+        <div class="indicator-dot" data-target="projects"></div>
+        <div class="indicator-dot" data-target="skills"></div>
+        <div class="indicator-dot" data-target="contact"></div>
+    </div>
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <section class="section hero-section" id="hero">
+        <div class="hero-bg-container">
+            <div class="hero-bg" style="background-image: url('images/hero.jpg')"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-grain"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-tag reveal-up">
+                <span class="tag-line"></span>
+                <span class="tag-text">Architectural Designer</span>
+            </div>
+            <h1 class="hero-name">
+                <span class="name-line reveal-up" style="--delay: 0.2s">SARATH</span>
+                <span class="name-line name-outline reveal-up" style="--delay: 0.4s">M&nbsp;S</span>
+            </h1>
+            <p class="hero-subtitle reveal-up" style="--delay: 0.6s">
+                <span class="subtitle-role">Interior Designer</span>
+                <span class="subtitle-divider">•</span>
+                <span class="subtitle-role">3D Visualiser</span>
+                <span class="subtitle-divider">•</span>
+                <span class="subtitle-role">BIM Specialist</span>
+            </p>
+            <div class="hero-location reveal-up" style="--delay: 0.8s">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>Abu Dhabi, UAE</span>
+            </div>
+        </div>
+        <div class="scroll-indicator" id="scrollIndicator">
+            <div class="scroll-text">Scroll</div>
+            <div class="scroll-line">
+                <div class="scroll-dot"></div>
+            </div>
+        </div>
+        <div class="hero-corner hero-corner-tl"></div>
+        <div class="hero-corner hero-corner-br"></div>
+    </section>
+
+    <!-- ===================== ABOUT SECTION ===================== -->
+    <section class="section" id="about">
+        <div class="section-container">
+            <div class="section-label reveal-up">
+                <span class="label-number">01</span>
+                <span class="label-line"></span>
+                <span class="label-text">About</span>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-visual reveal-left">
+                    <div class="about-image-frame">
+                        <div class="frame-corner fc-tl"></div>
+                        <div class="frame-corner fc-tr"></div>
+                        <div class="frame-corner fc-bl"></div>
+                        <div class="frame-corner fc-br"></div>
+                        <div class="about-image-wrapper">
+                            <img src="images/project3.jpg" alt="Interior Design by Sarath M S" class="about-image">
+                        </div>
+                        <div class="image-caption">
+                            <span class="gold-text">Bedroom Design</span> — Interior Concept
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-content reveal-right">
+                    <h2 class="section-title">
+                        Crafting Spaces<br>
+                        <span class="gold-text">That Inspire</span>
+                    </h2>
+                    <div class="about-text">
+                        <p>Architectural Designer with <strong>3+ years</strong> of experience in architectural design, BIM modelling, interior design, facade development, landscape planning, municipal submissions, and construction documentation.</p>
+                        <p>Experienced in UAE projects including <strong>villas, residential apartments, commercial developments</strong>, and interior fit-outs. Skilled in creating spaces that blend aesthetic excellence with functional precision.</p>
+                        <p>My approach integrates <strong>AI-assisted architectural workflows</strong> with traditional design principles, delivering innovative solutions for every project.</p>
+                    </div>
+
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="20">0</div>
+                            <div class="stat-plus">+</div>
+                            <div class="stat-label">Projects<br>Delivered</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="3">0</div>
+                            <div class="stat-plus">+</div>
+                            <div class="stat-label">Years<br>Experience</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" data-target="10">0</div>
+                            <div class="stat-plus">+</div>
+                            <div class="stat-label">Software<br>Mastered</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== EXPERIENCE SECTION ===================== -->
+    <section class="section" id="experience">
+        <div class="section-container">
+            <div class="section-label reveal-up">
+                <span class="label-number">02</span>
+                <span class="label-line"></span>
+                <span class="label-text">Experience</span>
+            </div>
+
+            <h2 class="section-title center reveal-up">
+                Professional<br>
+                <span class="gold-text">Journey</span>
+            </h2>
+
+            <div class="timeline">
+                <div class="timeline-line"></div>
+
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item timeline-left reveal-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card glass-card">
+                        <div class="timeline-date">2024 — 2025</div>
+                        <h3 class="timeline-role">Architect</h3>
+                        <div class="timeline-company">Smart Architectural Consultancy</div>
+                        <div class="timeline-location">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Ajman, UAE
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Delivered architectural documentation for 20+ villa and residential projects</li>
+                            <li>Prepared Ajman Municipality submission drawings and approval documentation</li>
+                            <li>Produced BIM models, detailed drawings and construction documentation</li>
+                            <li>Designed facade concepts, landscape elements and interior layouts</li>
+                            <li>Created high-quality visualizations using D5 Render, Lumion, Enscape</li>
+                            <li>Coordinated with MEP consultants and structural engineers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item timeline-right reveal-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card glass-card">
+                        <div class="timeline-date">2023 — 2024</div>
+                        <h3 class="timeline-role">Junior Architect</h3>
+                        <div class="timeline-company">Al-Taiba Interiors</div>
+                        <div class="timeline-location">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Sharjah, UAE
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Developed interior design concepts and space-planning solutions</li>
+                            <li>Produced detailed architectural and interior working drawings</li>
+                            <li>Designed custom furniture, product designs and architectural details</li>
+                            <li>Created photorealistic renderings and client presentation packages</li>
+                            <li>Conducted site visits and inspections for compliance monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item timeline-left reveal-left">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card glass-card">
+                        <div class="timeline-date">2022</div>
+                        <h3 class="timeline-role">Intern Architect</h3>
+                        <div class="timeline-company">SJA Consultancy</div>
+                        <div class="timeline-location">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            New Delhi, India
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Developed conceptual layouts for premium architectural & government projects</li>
+                            <li>Produced GFC sets and detailed working drawings</li>
+                            <li>Created high-resolution 3D models and photorealistic renderings</li>
+                            <li>Optimized visualization workflows using advanced texturing techniques</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item timeline-right reveal-right">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-card glass-card">
+                        <div class="timeline-date">2022</div>
+                        <h3 class="timeline-role">Intern Architect</h3>
+                        <div class="timeline-company">EGO Design Studio</div>
+                        <div class="timeline-location">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            India
+                        </div>
+                        <ul class="timeline-details">
+                            <li>Designed integrated spatial layouts — architecture, interior & landscape</li>
+                            <li>Developed bespoke interior concepts including custom furniture & FF&E</li>
+                            <li>Produced comprehensive working drawings and construction sets</li>
+                            <li>Curated cohesive material palettes across all design disciplines</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PROJECTS SECTION ===================== -->
+    <section class="section" id="projects">
+        <div class="section-container">
+            <div class="section-label reveal-up">
+                <span class="label-number">03</span>
+                <span class="label-line"></span>
+                <span class="label-text">Projects</span>
+            </div>
+
+            <h2 class="section-title center reveal-up">
+                Selected<br>
+                <span class="gold-text">Works</span>
+            </h2>
+
+            <div class="project-filters reveal-up">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="architecture">Architecture</button>
+                <button class="filter-btn" data-filter="interior">Interior</button>
+                <button class="filter-btn" data-filter="visualization">Visualization</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card reveal-up" data-category="interior" style="--delay: 0.1s">
+                    <div class="project-image-wrapper">
+                        <img src="images/project1.jpg" alt="Luxury Kitchen Interior Design" class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-overlay-content">
+                                <span class="project-category-tag">Interior Design</span>
+                                <h3 class="project-title">Luxury Kitchen</h3>
+                                <p class="project-desc">Premium dark-themed kitchen with marble accents, integrated lighting design, and bespoke cabinetry</p>
+                                <div class="project-tools">
+                                    <span>D5 Render</span>
+                                    <span>SketchUp</span>
+                                    <span>AutoCAD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Luxury Kitchen Design</h3>
+                        <span class="project-type">Interior Fit-Out</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card reveal-up" data-category="interior" style="--delay: 0.2s">
+                    <div class="project-image-wrapper">
+                        <img src="images/project2.jpg" alt="Family Kitchen Interior" class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-overlay-content">
+                                <span class="project-category-tag">Interior Design</span>
+                                <h3 class="project-title">Family Kitchen</h3>
+                                <p class="project-desc">Warm contemporary kitchen with natural wood tones, functional layout, and inviting atmosphere</p>
+                                <div class="project-tools">
+                                    <span>Lumion</span>
+                                    <span>Revit</span>
+                                    <span>AutoCAD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Contemporary Family Kitchen</h3>
+                        <span class="project-type">Residential Interior</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card reveal-up" data-category="interior visualization" style="--delay: 0.3s">
+                    <div class="project-image-wrapper">
+                        <img src="images/project3.jpg" alt="Bedroom Interior Design" class="project-image">
+                        <div class="project-overlay">
+                            <div class="project-overlay-content">
+                                <span class="project-category-tag">3D Visualization</span>
+                                <h3 class="project-title">Master Bedroom</h3>
+                                <p class="project-desc">Elegant bedroom with warm natural materials, cane-detailed wardrobes, and ambient lighting design</p>
+                                <div class="project-tools">
+                                    <span>Enscape</span>
+                                    <span>SketchUp</span>
+                                    <span>Photoshop</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Elegant Master Bedroom</h3>
+                        <span class="project-type">Interior Visualization</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 (text-based) -->
+                <div class="project-card project-card-text reveal-up" data-category="architecture" style="--delay: 0.1s">
+                    <div class="project-text-card glass-card">
+                        <div class="project-text-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                                <path d="M3 21h18M3 7v1a3 3 0 006 0V7M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3M15 7v1a3 3 0 006 0V7M3 7h18"/>
+                                <path d="M6 21V10M18 21V10M9 21v-4a2 2 0 014 0v4"/>
+                            </svg>
+                        </div>
+                        <span class="project-category-tag">Architecture</span>
+                        <h3 class="project-title">Luxury Villa Development</h3>
+                        <p class="project-desc">Ajman, UAE — Architectural design, BIM modelling, municipality submission drawings, and construction documentation</p>
+                        <div class="project-tools">
+                            <span>Revit</span>
+                            <span>AutoCAD</span>
+                            <span>BIM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 (text-based) -->
+                <div class="project-card project-card-text reveal-up" data-category="architecture" style="--delay: 0.2s">
+                    <div class="project-text-card glass-card">
+                        <div class="project-text-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <line x1="3" y1="9" x2="21" y2="9"/>
+                                <line x1="3" y1="15" x2="21" y2="15"/>
+                                <line x1="9" y1="3" x2="9" y2="21"/>
+                                <line x1="15" y1="3" x2="15" y2="21"/>
+                            </svg>
+                        </div>
+                        <span class="project-category-tag">Architecture</span>
+                        <h3 class="project-title">G+2 Residential Apartments</h3>
+                        <p class="project-desc">Space planning, facade design, working drawings, and 3D visualization for a multi-story residential development</p>
+                        <div class="project-tools">
+                            <span>Revit</span>
+                            <span>Lumion</span>
+                            <span>AutoCAD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 (text-based) -->
+                <div class="project-card project-card-text reveal-up" data-category="architecture visualization" style="--delay: 0.3s">
+                    <div class="project-text-card glass-card">
+                        <div class="project-text-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                                <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
+                            </svg>
+                        </div>
+                        <span class="project-category-tag">Landscape</span>
+                        <h3 class="project-title">Landscape & Hardscape Design</h3>
+                        <p class="project-desc">Site planning, hardscape and softscape design, outdoor amenities, and photorealistic presentation renderings</p>
+                        <div class="project-tools">
+                            <span>SketchUp</span>
+                            <span>D5 Render</span>
+                            <span>AutoCAD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SKILLS SECTION ===================== -->
+    <section class="section" id="skills">
+        <div class="section-container">
+            <div class="section-label reveal-up">
+                <span class="label-number">04</span>
+                <span class="label-line"></span>
+                <span class="label-text">Skills</span>
+            </div>
+
+            <h2 class="section-title center reveal-up">
+                Tools &<br>
+                <span class="gold-text">Expertise</span>
+            </h2>
+
+            <div class="skills-grid">
+                <!-- Software Skills -->
+                <div class="skills-software reveal-left">
+                    <h3 class="skills-subtitle">Software Proficiency</h3>
+                    <div class="software-grid">
+                        <div class="software-item" data-percent="95">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 95"/>
+                            </svg>
+                            <div class="software-label">AutoCAD</div>
+                            <div class="software-percent">95%</div>
+                        </div>
+                        <div class="software-item" data-percent="52">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 52"/>
+                            </svg>
+                            <div class="software-label">Revit</div>
+                            <div class="software-percent">52%</div>
+                        </div>
+                        <div class="software-item" data-percent="90">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 90"/>
+                            </svg>
+                            <div class="software-label">SketchUp</div>
+                            <div class="software-percent">90%</div>
+                        </div>
+                        <div class="software-item" data-percent="88">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 88"/>
+                            </svg>
+                            <div class="software-label">D5 Render</div>
+                            <div class="software-percent">88%</div>
+                        </div>
+                        <div class="software-item" data-percent="88">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 88"/>
+                            </svg>
+                            <div class="software-label">Lumion</div>
+                            <div class="software-percent">88%</div>
+                        </div>
+                        <div class="software-item" data-percent="85">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 85"/>
+                            </svg>
+                            <div class="software-label">Enscape</div>
+                            <div class="software-percent">85%</div>
+                        </div>
+                        <div class="software-item" data-percent="80">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 80"/>
+                            </svg>
+                            <div class="software-label">Unreal Engine</div>
+                            <div class="software-percent">80%</div>
+                        </div>
+                        <div class="software-item" data-percent="82">
+                            <svg class="progress-ring" viewBox="0 0 120 120">
+                                <circle class="ring-bg" cx="60" cy="60" r="52"/>
+                                <circle class="ring-fill" cx="60" cy="60" r="52" style="--percent: 82"/>
+                            </svg>
+                            <div class="software-label">Adobe Suite</div>
+                            <div class="software-percent">82%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Expertise -->
+                <div class="skills-expertise reveal-right">
+                    <h3 class="skills-subtitle">Core Expertise</h3>
+                    <div class="expertise-tags">
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            BIM Modelling
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            AI Architectural Integration
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                            Architecture & Interior Design
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                            Facade Development
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Photorealistic Rendering
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+                            GFC Drafting
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+                            Municipal Approvals
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+                            Site Coordination
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                            Construction Documentation
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+                            3D Modelling
+                        </div>
+                        <div class="expertise-tag glass-card">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+                            Landscape Planning
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="languages-section reveal-up">
+                <h3 class="skills-subtitle center">Languages</h3>
+                <div class="languages-grid">
+                    <div class="language-item glass-card">
+                        <div class="language-name">English</div>
+                        <div class="language-level">Read • Write • Speak</div>
+                        <div class="language-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="language-item glass-card">
+                        <div class="language-name">Hindi</div>
+                        <div class="language-level">Read • Write • Speak</div>
+                        <div class="language-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="language-item glass-card">
+                        <div class="language-name">Malayalam</div>
+                        <div class="language-level">Read • Write • Speak</div>
+                        <div class="language-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                        </div>
+                    </div>
+                    <div class="language-item glass-card">
+                        <div class="language-name">Tamil</div>
+                        <div class="language-level">Speak</div>
+                        <div class="language-dots">
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot filled"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== EDUCATION SECTION ===================== -->
+    <section class="section section-small" id="education">
+        <div class="section-container">
+            <div class="education-grid reveal-up">
+                <div class="education-card glass-card">
+                    <div class="edu-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"/>
+                        </svg>
+                    </div>
+                    <div class="edu-content">
+                        <div class="edu-degree">Bachelor of Architecture (B.Arch)</div>
+                        <div class="edu-school">Holy Crescent College of Architecture</div>
+                        <div class="edu-uni">Mahatma Gandhi University, Kerala, India</div>
+                        <div class="edu-year">2018 — 2023</div>
+                    </div>
+                </div>
+                <div class="education-card glass-card">
+                    <div class="edu-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                            <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                        </svg>
+                    </div>
+                    <div class="edu-content">
+                        <div class="edu-degree">Higher Secondary Education</div>
+                        <div class="edu-school">St. Mary's Higher Secondary School</div>
+                        <div class="edu-uni">Pattom, Kerala, India</div>
+                        <div class="edu-year">2016 — 2018</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CONTACT SECTION ===================== -->
+    <section class="section" id="contact">
+        <div class="section-container">
+            <div class="section-label reveal-up">
+                <span class="label-number">05</span>
+                <span class="label-line"></span>
+                <span class="label-text">Contact</span>
+            </div>
+
+            <h2 class="section-title center reveal-up">
+                Let's Create<br>
+                <span class="gold-text">Together</span>
+            </h2>
+
+            <div class="contact-grid">
+                <div class="contact-info reveal-left">
+                    <p class="contact-intro">Interested in collaborating or have a project in mind? Let's discuss how we can bring your architectural vision to life.</p>
+
+                    <div class="contact-details">
+                        <a href="mailto:Sarathmanoj20@gmail.com" class="contact-item glass-card">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div class="contact-text">
+                                <div class="contact-label">Email</div>
+                                <div class="contact-value">Sarathmanoj20@gmail.com</div>
+                            </div>
+                        </a>
+
+                        <a href="tel:+971506842545" class="contact-item glass-card">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                                    <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                                </svg>
+                            </div>
+                            <div class="contact-text">
+                                <div class="contact-label">Phone</div>
+                                <div class="contact-value">+971 506842545</div>
+                            </div>
+                        </a>
+
+                        <div class="contact-item glass-card">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div class="contact-text">
+                                <div class="contact-label">Location</div>
+                                <div class="contact-value">Abu Dhabi, UAE</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper reveal-right">
+                    <form class="contact-form glass-card" id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="formName" required autocomplete="name">
+                            <label for="formName">Your Name</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="formEmail" required autocomplete="email">
+                            <label for="formEmail">Your Email</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="formSubject" required>
+                            <label for="formSubject">Subject</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="formMessage" rows="4" required></textarea>
+                            <label for="formMessage">Your Message</label>
+                            <div class="form-line"></div>
+                        </div>
+                        <button type="submit" class="form-submit" id="formSubmit">
+                            <span class="submit-text">Send Message</span>
+                            <span class="submit-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22,2 15,22 11,13 2,9"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-logo">
+                    <span class="logo-text">SARATH</span>
+                    <span class="gold-text"> M S</span>
+                </div>
+                <div class="footer-tagline">Architectural Designer • Interior Designer • 3D Visualiser</div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <div class="footer-copyright">© 2025 Sarath M S. All Rights Reserved.</div>
+                <div class="footer-social">
+                    <a href="mailto:Sarathmanoj20@gmail.com" class="social-link" aria-label="Email">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                    </a>
+                    <a href="tel:+971506842545" class="social-link" aria-label="Phone">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
