@@ -23,12 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const next = current === 'dark' ? 'light' : 'dark';
         setTheme(next);
     });
-    // ===================== INTERACTIVE MESMERIZING PRELOADER =====================
+    // ===================== FRESH ARCHITECTURAL CAD BLUEPRINT PRELOADER =====================
     const preloader = document.getElementById('preloader');
     const preloaderCanvas = document.getElementById('preloaderCanvas');
     const preloaderInner = document.getElementById('preloaderInner');
-    const enterPortfolioBtn = document.getElementById('enterPortfolioBtn');
-    const glowOrb = document.querySelector('.preloader-glow-orb');
+    const hudCoords = document.getElementById('hudCoords');
+    const loaderPercent = document.getElementById('loaderPercent');
+    const loaderBar = document.getElementById('loaderBar');
+    const loaderStatus = document.getElementById('loaderStatus');
 
     if (preloaderCanvas && preloader) {
         const ctx = preloaderCanvas.getContext('2d');
@@ -42,220 +44,190 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Particle System
-        const particles = [];
-        const shockwaves = [];
-        const trails = [];
-        const numParticles = Math.min(Math.floor((width * height) / 12000), 75);
+        // 3D Architectural Wireframe Structure Definition
+        const vertices = [
+            // Outer Prism
+            {x: -1, y: -1, z: -1}, {x: 1, y: -1, z: -1},
+            {x: 1, y: 1, z: -1},  {x: -1, y: 1, z: -1},
+            {x: -1, y: -1, z: 1},  {x: 1, y: -1, z: 1},
+            {x: 1, y: 1, z: 1},   {x: -1, y: 1, z: 1},
+            // Inner Core
+            {x: -0.5, y: -0.5, z: -0.5}, {x: 0.5, y: -0.5, z: -0.5},
+            {x: 0.5, y: 0.5, z: -0.5},  {x: -0.5, y: 0.5, z: -0.5},
+            {x: -0.5, y: -0.5, z: 0.5},  {x: 0.5, y: -0.5, z: 0.5},
+            {x: 0.5, y: 0.5, z: 0.5},   {x: -0.5, y: 0.5, z: 0.5}
+        ];
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
+        const edges = [
+            // Outer Box Edges
+            [0,1], [1,2], [2,3], [3,0],
+            [4,5], [5,6], [6,7], [7,4],
+            [0,4], [1,5], [2,6], [3,7],
+            // Inner Box Edges
+            [8,9], [9,10], [10,11], [11,8],
+            [12,13], [13,14], [14,15], [15,12],
+            [8,12], [9,13], [10,14], [11,15],
+            // Connecting Struts
+            [0,8], [1,9], [2,10], [3,11],
+            [4,12], [5,13], [6,14], [7,15]
+        ];
 
-            reset() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.8;
-                this.vy = (Math.random() - 0.5) * 0.8;
-                this.radius = Math.random() * 2 + 1;
-                this.baseAlpha = Math.random() * 0.5 + 0.2;
-                this.alpha = this.baseAlpha;
-                this.goldHue = Math.random() > 0.3 ? '201, 169, 110' : '212, 175, 55';
-            }
+        let rotX = 0.4, rotY = 0.6;
+        let targetRotX = 0.4, targetRotY = 0.6;
+        const cadPulses = [];
+        const mouse = { x: width / 2, y: height / 2 };
 
-            update(mouse) {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-
-                // Mouse interaction - gentle attraction & lighting up
-                if (mouse.x !== null) {
-                    const dx = mouse.x - this.x;
-                    const dy = mouse.y - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 180) {
-                        const force = (180 - dist) / 180;
-                        this.x += (dx / dist) * force * 1.5;
-                        this.y += (dy / dist) * force * 1.5;
-                        this.alpha = Math.min(1, this.baseAlpha + force * 0.6);
-                    } else {
-                        this.alpha += (this.baseAlpha - this.alpha) * 0.05;
-                    }
-                }
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(${this.goldHue}, ${this.alpha})`;
-                ctx.shadowColor = `rgba(${this.goldHue}, 0.8)`;
-                ctx.shadowBlur = 8;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            }
-        }
-
-        // Mouse Trail Sparks
-        class TrailParticle {
-            constructor(x, y) {
-                this.x = x + (Math.random() - 0.5) * 10;
-                this.y = y + (Math.random() - 0.5) * 10;
-                this.vx = (Math.random() - 0.5) * 2;
-                this.vy = (Math.random() - 0.5) * 2 - 0.5;
-                this.radius = Math.random() * 2.5 + 1;
-                this.life = 1;
-                this.decay = Math.random() * 0.02 + 0.015;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.life -= this.decay;
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius * this.life, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(212, 175, 55, ${this.life})`;
-                ctx.shadowColor = 'rgba(201, 169, 110, 0.9)';
-                ctx.shadowBlur = 10;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-            }
-        }
-
-        // Shockwave Ring
-        class Shockwave {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.radius = 5;
-                this.maxRadius = Math.max(width, height) * 0.5;
-                this.alpha = 1;
-                this.speed = 8;
-            }
-
-            update() {
-                this.radius += this.speed;
-                this.alpha = Math.max(0, 1 - this.radius / this.maxRadius);
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.strokeStyle = `rgba(201, 169, 110, ${this.alpha * 0.6})`;
-                ctx.lineWidth = 2;
-                ctx.shadowColor = 'rgba(201, 169, 110, 0.8)';
-                ctx.shadowBlur = 15;
-                ctx.stroke();
-                ctx.shadowBlur = 0;
-            }
-        }
-
-        for (let i = 0; i < numParticles; i++) {
-            particles.push(new Particle());
-        }
-
-        const preloaderMouse = { x: null, y: null };
-        let animFrameId = null;
-
-        // Interaction listeners
+        // Mouse interactions
         preloader.addEventListener('mousemove', (e) => {
-            preloaderMouse.x = e.clientX;
-            preloaderMouse.y = e.clientY;
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
 
-            // Move background glow orb
-            if (glowOrb) {
-                glowOrb.style.transform = `translate(${e.clientX - window.innerWidth / 2}px, ${e.clientY - window.innerHeight / 2}px)`;
+            // HUD Coordinate Readout
+            if (hudCoords) {
+                hudCoords.textContent = `CURSOR: X: ${String(Math.round(e.clientX)).padStart(3, '0')} | Y: ${String(Math.round(e.clientY)).padStart(3, '0')}`;
             }
 
-            // 3D Tilt Effect on preloader inner
+            // Tilt 3D Wireframe based on cursor
+            targetRotY = 0.6 + (e.clientX / width - 0.5) * 1.5;
+            targetRotX = 0.4 + (e.clientY / height - 0.5) * 1.5;
+
+            // Subtle 3D Tilt on Inner Container
             if (preloaderInner) {
-                const tiltX = (e.clientY / window.innerHeight - 0.5) * -15;
-                const tiltY = (e.clientX / window.innerWidth - 0.5) * 15;
+                const tiltX = (e.clientY / height - 0.5) * -10;
+                const tiltY = (e.clientX / width - 0.5) * 10;
                 preloaderInner.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
             }
-
-            // Add spark trails
-            for (let i = 0; i < 2; i++) {
-                trails.push(new TrailParticle(e.clientX, e.clientY));
-            }
         });
 
-        preloader.addEventListener('mouseleave', () => {
-            preloaderMouse.x = null;
-            preloaderMouse.y = null;
-            if (preloaderInner) preloaderInner.style.transform = 'rotateX(0deg) rotateY(0deg)';
-        });
-
-        // Click Shockwave Burst
+        // Click Ripple Pulse
         preloader.addEventListener('click', (e) => {
-            if (e.target.closest('#enterPortfolioBtn')) return; // handled by button handler
-            shockwaves.push(new Shockwave(e.clientX, e.clientY));
-            for (let i = 0; i < 20; i++) {
-                trails.push(new TrailParticle(e.clientX, e.clientY));
-            }
+            cadPulses.push({
+                x: e.clientX,
+                y: e.clientY,
+                r: 0,
+                maxR: Math.max(width, height) * 0.4,
+                alpha: 1
+            });
         });
 
-        // Main Preloader Canvas Render Loop
-        function renderPreloaderCanvas() {
+        // 3D Point Projection Helper
+        function project3D(x, y, z) {
+            // Apply rotations
+            const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
+            const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
+
+            // Y rotation
+            let x1 = x * cosY - z * sinY;
+            let z1 = z * cosY + x * sinY;
+            let y1 = y;
+
+            // X rotation
+            let y2 = y1 * cosX - z1 * sinX;
+            let z2 = z1 * cosX + y1 * sinX;
+
+            const fov = 350;
+            const distance = 4;
+            const scale = fov / (distance + z2);
+
+            return {
+                x: width / 2 + x1 * scale * 1.6,
+                y: height / 2 + y2 * scale * 1.6
+            };
+        }
+
+        let animId;
+        function renderCADCanvas() {
             if (preloader.classList.contains('loaded')) {
-                cancelAnimationFrame(animFrameId);
+                cancelAnimationFrame(animId);
                 return;
             }
 
             ctx.clearRect(0, 0, width, height);
 
-            // Draw Constellation Lines
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
+            // Smooth 3D Rotation damping
+            rotX += (targetRotX - rotX) * 0.05;
+            rotY += (targetRotY - rotY) * 0.05;
+            rotY += 0.005; // gentle continuous rotation
 
-                    if (dist < 130) {
-                        const alpha = (1 - dist / 130) * 0.25;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(201, 169, 110, ${alpha})`;
-                        ctx.lineWidth = 0.8;
-                        ctx.stroke();
-                    }
-                }
+            // 1. Draw Architectural Blueprint CAD Grid
+            const gridSize = 40;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < width; x += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+                ctx.stroke();
+            }
+            for (let y = 0; y < height; y += gridSize) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+                ctx.stroke();
             }
 
-            // Update & Draw Particles
-            particles.forEach(p => {
-                p.update(preloaderMouse);
-                p.draw();
+            // 2. Draw Interactive CAD Mouse Crosshairs
+            if (mouse.x !== null) {
+                ctx.strokeStyle = 'rgba(201, 169, 110, 0.15)';
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.moveTo(mouse.x, 0);
+                ctx.lineTo(mouse.x, height);
+                ctx.moveTo(0, mouse.y);
+                ctx.lineTo(width, mouse.y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+
+            // 3. Draw Click Pulse Rings
+            for (let i = cadPulses.length - 1; i >= 0; i--) {
+                const pulse = cadPulses[i];
+                pulse.r += 6;
+                pulse.alpha = Math.max(0, 1 - pulse.r / pulse.maxR);
+
+                ctx.beginPath();
+                ctx.arc(pulse.x, pulse.y, pulse.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(201, 169, 110, ${pulse.alpha * 0.5})`;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                if (pulse.alpha <= 0) cadPulses.splice(i, 1);
+            }
+
+            // 4. Project & Render 3D Architectural Wireframe Structure
+            const projected = vertices.map(v => project3D(v.x, v.y, v.z));
+
+            // Render Edges
+            ctx.lineWidth = 1.5;
+            edges.forEach(([i1, i2]) => {
+                const p1 = projected[i1];
+                const p2 = projected[i2];
+
+                ctx.beginPath();
+                ctx.moveTo(p1.x, p1.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = 'rgba(201, 169, 110, 0.4)';
+                ctx.stroke();
             });
 
-            // Update & Draw Trails
-            for (let i = trails.length - 1; i >= 0; i--) {
-                trails[i].update();
-                trails[i].draw();
-                if (trails[i].life <= 0) trails.splice(i, 1);
-            }
+            // Render Node Points
+            projected.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
+                ctx.fillStyle = '#c9a96e';
+                ctx.shadowColor = '#c9a96e';
+                ctx.shadowBlur = 8;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
 
-            // Update & Draw Shockwaves
-            for (let i = shockwaves.length - 1; i >= 0; i--) {
-                shockwaves[i].update();
-                shockwaves[i].draw();
-                if (shockwaves[i].alpha <= 0) shockwaves.splice(i, 1);
-            }
-
-            animFrameId = requestAnimationFrame(renderPreloaderCanvas);
+            animId = requestAnimationFrame(renderCADCanvas);
         }
 
-        renderPreloaderCanvas();
+        renderCADCanvas();
     }
 
-    // Dismiss Preloader Handler
+    // Dismiss Preloader Helper
     function dismissPreloader() {
         if (!preloader.classList.contains('loaded')) {
             preloader.classList.add('loaded');
@@ -264,12 +236,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    if (enterPortfolioBtn) {
-        enterPortfolioBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            dismissPreloader();
-        });
+    // Smooth Architectural Progress Simulation (0% -> 100%)
+    let progress = 0;
+    const progressStartTime = performance.now();
+    const duration = 2400; // 2.4 seconds smooth loading
+
+    const statusSteps = [
+        { pct: 0, text: 'INITIALIZING CAD WORKSPACE...' },
+        { pct: 30, text: 'COMPILING BIM MODELS & SCHEMATICS...' },
+        { pct: 65, text: 'RENDERING PHOTOREALISTIC ENVIRONMENTS...' },
+        { pct: 90, text: 'FINALIZING DESIGN SYSTEM...' },
+        { pct: 100, text: 'SYSTEM READY • WELCOME' }
+    ];
+
+    function updatePreloaderProgress(time) {
+        const elapsed = time - progressStartTime;
+        const rawProgress = Math.min(1, elapsed / duration);
+        // Easing cubic out
+        const eased = 1 - Math.pow(1 - rawProgress, 3);
+        progress = Math.round(eased * 100);
+
+        if (loaderPercent) loaderPercent.textContent = String(progress).padStart(2, '0');
+        if (loaderBar) loaderBar.style.width = progress + '%';
+
+        // Update status text
+        if (loaderStatus) {
+            for (let i = statusSteps.length - 1; i >= 0; i--) {
+                if (progress >= statusSteps[i].pct) {
+                    loaderStatus.textContent = statusSteps[i].text;
+                    break;
+                }
+            }
+        }
+
+        if (rawProgress < 1) {
+            requestAnimationFrame(updatePreloaderProgress);
+        } else {
+            setTimeout(dismissPreloader, 300);
+        }
     }
+
+    requestAnimationFrame(updatePreloaderProgress);
 
     // ===================== CUSTOM CURSOR =====================
     const cursor = document.getElementById('cursor');

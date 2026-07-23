@@ -12,48 +12,50 @@
 </head>
 <body>
 
-    <!-- Interactive Mesmerizing Preloader -->
+    <!-- Fresh Architectural Blueprint Preloader -->
     <div class="preloader" id="preloader">
         <canvas class="preloader-canvas" id="preloaderCanvas"></canvas>
-        
-        <div class="preloader-glow-orb"></div>
+
+        <!-- Interactive HUD Overlay -->
+        <div class="preloader-hud">
+            <div class="hud-corner hud-tl">
+                <span class="hud-dot"></span>
+                <span>24°45'39"N • ABU DHABI</span>
+            </div>
+            <div class="hud-corner hud-tr">
+                <span>54°37'73"E • UAE</span>
+                <span class="hud-dot"></span>
+            </div>
+            <div class="hud-corner hud-bl">
+                <span>SYSTEM: BIM / 3D CAD</span>
+            </div>
+            <div class="hud-corner hud-br">
+                <span id="hudCoords">CURSOR: X: 000 | Y: 000</span>
+            </div>
+        </div>
 
         <div class="preloader-inner" id="preloaderInner">
-            <div class="signature-container" id="signatureContainer">
-                <svg class="signature-svg" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="3" result="blur" />
-                            <feMerge>
-                                <feMergeNode in="blur" />
-                                <feMergeNode in="SourceGraphic" />
-                            </feMerge>
-                        </filter>
-                    </defs>
-                    <!-- Signature text drawn with stroke animation -->
-                    <text class="signature-text signature-first" x="60" y="120" font-family="'Great Vibes', cursive" font-size="82" fill="none" stroke="#c9a96e" stroke-width="1.4" filter="url(#goldGlow)">Sarath</text>
-                    <text class="signature-text signature-last" x="300" y="120" font-family="'Great Vibes', cursive" font-size="82" fill="none" stroke="#c9a96e" stroke-width="1.4" filter="url(#goldGlow)">Manoj</text>
-                    <!-- Decorative underline flourish -->
-                    <path class="signature-flourish" d="M60,140 Q150,155 300,138 T540,142" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" filter="url(#goldGlow)"/>
-                    <!-- Small dot at the end -->
-                    <circle class="signature-dot" cx="545" cy="142" r="3" fill="#c9a96e" opacity="0"/>
-                </svg>
-            </div>
-            
-            <div class="preloader-subtitle">Architectural Designer & 3D Visualiser</div>
-            
-            <div class="preloader-interactive-prompt">
-                <div class="interactive-hint">
-                    <span class="hint-pulse"></span>
-                    <span class="hint-text">Move cursor to draw light • Click to create shockwave</span>
+            <div class="arch-brand">
+                <div class="brand-monogram">
+                    <span class="mono-square"></span>
+                    <span class="mono-text">S M S</span>
                 </div>
-                <button class="enter-portfolio-btn" id="enterPortfolioBtn">
-                    <span>EXPLORE PORTFOLIO</span>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </button>
+                <h1 class="brand-name">SARATH MANOJ</h1>
+                <div class="brand-divider">
+                    <span class="div-line"></span>
+                    <span class="div-diamond"></span>
+                    <span class="div-line"></span>
+                </div>
+                <p class="brand-role">ARCHITECTURAL DESIGNER • BIM SPECIALIST • 3D VISUALISER</p>
+            </div>
+
+            <!-- Sleek Progress Bar -->
+            <div class="preloader-progress-wrap">
+                <div class="progress-number"><span id="loaderPercent">00</span><span class="percent-symbol">%</span></div>
+                <div class="progress-track">
+                    <div class="progress-bar" id="loaderBar"></div>
+                </div>
+                <div class="progress-status" id="loaderStatus">INITIALIZING ARCHITECTURAL WORKSPACE...</div>
             </div>
         </div>
     </div>
