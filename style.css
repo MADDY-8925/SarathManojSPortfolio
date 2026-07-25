@@ -2209,33 +2209,10 @@ img { max-width: 100%; display: block; }
 
 /* Mobile & Tablet (< 1024px) Layout Overrides */
 @media (max-width: 1024px) {
-    .showcase-sticky-wrapper {
-        display: none !important;
-    }
-
-    .scroll-showcase-section {
-        height: auto !important;
-        margin-top: 3rem;
-        padding: 2rem 0;
-    }
-
+    #showcase,
+    .scroll-showcase-section,
     .mobile-showcase-container {
-        display: block !important;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 5%;
-    }
-
-    .mobile-feature-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        margin-top: 2.5rem;
-    }
-
-    .mobile-feature-card {
-        padding: 1.8rem;
-        border-radius: 16px;
+        display: none !important;
     }
 
     .mobile-theme-toggle {
@@ -2266,12 +2243,6 @@ img { max-width: 100%; display: block; }
         display: flex;
         align-items: center;
         gap: 0.5rem;
-    }
-}
-
-@media (min-width: 1025px) {
-    .mobile-showcase-container {
-        display: none !important;
     }
 }
 
