@@ -402,6 +402,10 @@ img { max-width: 100%; display: block; }
     gap: 2rem;
 }
 
+[data-scroll] {
+    cursor: pointer;
+}
+
 .nav-link {
     font-family: var(--font-heading);
     font-size: 0.85rem;

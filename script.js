@@ -156,26 +156,26 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.toggle('menu-open');
     });
 
-    // Smooth scroll with page transition for hash anchor links
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const href = link.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const targetId = href.substring(1);
-                const targetSection = document.getElementById(targetId);
+    // Smooth scroll with page transition for data-scroll and anchor links
+    document.querySelectorAll('[data-scroll], a[href^="#"]').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetSelector = item.getAttribute('data-scroll') || item.getAttribute('href');
+            if (!targetSelector) return;
 
-                // Close mobile menu
-                navToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.classList.remove('menu-open');
+            const targetId = targetSelector.replace('#', '');
+            const targetSection = document.getElementById(targetId);
 
-                if (targetSection) {
-                    // Trigger page transition
-                    triggerPageTransition(() => {
-                        targetSection.scrollIntoView({ behavior: 'auto' });
-                    });
-                }
+            // Close mobile menu
+            if (navToggle) navToggle.classList.remove('active');
+            if (mobileMenu) mobileMenu.classList.remove('active');
+            document.body.classList.remove('menu-open');
+
+            if (targetSection) {
+                // Trigger page transition
+                triggerPageTransition(() => {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
             }
         });
     });
