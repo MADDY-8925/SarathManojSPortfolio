@@ -57,6 +57,7 @@
             </a>
             <div class="nav-links" id="navLinks">
                 <a href="#about" class="nav-link" data-section="about">About</a>
+                <a href="#showcase" class="nav-link" data-section="showcase">Showcase</a>
                 <a href="#experience" class="nav-link" data-section="experience">Experience</a>
                 <a href="#projects" class="nav-link" data-section="projects">Projects</a>
                 <a href="#skills" class="nav-link" data-section="skills">Skills</a>
@@ -219,6 +220,62 @@
                             <div class="stat-label">Software<br>Mastered</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== INTERACTIVE SCROLL SHOWCASE ===================== -->
+    <section class="scroll-showcase-section" id="showcase">
+        <div class="showcase-sticky-wrapper">
+            <!-- Background Canvas for 189-frame render -->
+            <canvas class="showcase-canvas" id="showcaseCanvas"></canvas>
+            <div class="showcase-overlay-gradient"></div>
+
+            <!-- Header Badge -->
+            <div class="showcase-header-badge">
+                <span class="badge-dot"></span>
+                <span>INTERACTIVE 3D DESIGN SEQUENCE</span>
+            </div>
+
+            <!-- Scroll Progress Indicator -->
+            <div class="showcase-scroll-hud">
+                <div class="hud-frame-count">FRAME <span id="currentFrameNum">001</span> / 189</div>
+                <div class="hud-progress-bar"><div class="hud-progress-fill" id="hudProgressFill"></div></div>
+                <div class="hud-scroll-hint">
+                    <span>SCROLL TO EXPLORE FEATURES</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                </div>
+            </div>
+
+            <!-- Scroll-Synced Feature Overlay Cards -->
+            <div class="showcase-text-container">
+                <!-- Feature 1 -->
+                <div class="showcase-feature-card active" data-feature="1">
+                    <span class="feature-tag">01 / BIM & MODELING</span>
+                    <h3 class="feature-title">High-Precision Building Information Modeling</h3>
+                    <p class="feature-desc">Expert BIM coordination in Revit, detailed GFC working drawings, municipal submissions, and structured technical documentation for UAE villas and commercial developments.</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="showcase-feature-card" data-feature="2">
+                    <span class="feature-tag">02 / VISUALIZATION</span>
+                    <h3 class="feature-title">Photorealistic 3D Renderings & Animations</h3>
+                    <p class="feature-desc">Cinematic architectural exterior and interior visualisations created using D5 Render, Lumion, Enscape, and SketchUp with advanced texturing and lighting.</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="showcase-feature-card" data-feature="3">
+                    <span class="feature-tag">03 / FACADE & LANDSCAPE</span>
+                    <h3 class="feature-title">Integrated Facade & Landscape Planning</h3>
+                    <p class="feature-desc">End-to-end design development blending modern facade detailing, hardscape & softscape planning, material selection, and site execution monitoring.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="showcase-feature-card" data-feature="4">
+                    <span class="feature-tag">04 / INNOVATION</span>
+                    <h3 class="feature-title">AI-Assisted Architectural Workflows</h3>
+                    <p class="feature-desc">Pioneering the integration of cutting-edge AI design tools with traditional architectural workflows for rapid conceptualization and luxury spatial design.</p>
                 </div>
             </div>
         </div>

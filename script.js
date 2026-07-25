@@ -529,4 +529,142 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     createParticles();
+
+    // ===================== 189-FRAME SCROLL SHOWCASE ENGINE =====================
+    const showcaseSection = document.getElementById('showcase');
+    const showcaseCanvas = document.getElementById('showcaseCanvas');
+    const currentFrameNum = document.getElementById('currentFrameNum');
+    const hudProgressFill = document.getElementById('hudProgressFill');
+    const featureCards = document.querySelectorAll('.showcase-feature-card');
+
+    if (showcaseSection && showcaseCanvas) {
+        const ctx = showcaseCanvas.getContext('2d');
+        const totalFrames = 189;
+        const frames = [];
+        let imagesLoaded = 0;
+        let activeFrameIndex = 0;
+        let isRendering = false;
+
+        // Resize Canvas Helper
+        function resizeShowcaseCanvas() {
+            showcaseCanvas.width = window.innerWidth;
+            showcaseCanvas.height = window.innerHeight;
+            renderShowcaseFrame(activeFrameIndex);
+        }
+
+        window.addEventListener('resize', resizeShowcaseCanvas);
+
+        // Draw Image to Canvas with Cover Scaling
+        function renderShowcaseFrame(index) {
+            const img = frames[index];
+            if (!img || !img.complete) return;
+
+            const canvasWidth = showcaseCanvas.width;
+            const canvasHeight = showcaseCanvas.height;
+            const imgWidth = img.naturalWidth || img.width;
+            const imgHeight = img.naturalHeight || img.height;
+
+            if (!imgWidth || !imgHeight) return;
+
+            const imgRatio = imgWidth / imgHeight;
+            const canvasRatio = canvasWidth / canvasHeight;
+
+            let drawWidth, drawHeight, offsetX, offsetY;
+
+            if (canvasRatio > imgRatio) {
+                drawWidth = canvasWidth;
+                drawHeight = canvasWidth / imgRatio;
+                offsetX = 0;
+                offsetY = (canvasHeight - drawHeight) / 2;
+            } else {
+                drawHeight = canvasHeight;
+                drawWidth = canvasHeight * imgRatio;
+                offsetX = (canvasWidth - drawWidth) / 2;
+                offsetY = 0;
+            }
+
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+        }
+
+        // Preload Frame Images
+        for (let i = 1; i <= totalFrames; i++) {
+            const img = new Image();
+            const frameStr = String(i).padStart(3, '0');
+            img.src = `images/frames/ezgif-frame-${frameStr}.png`;
+
+            img.onload = () => {
+                imagesLoaded++;
+                if (i === 1) {
+                    resizeShowcaseCanvas();
+                }
+            };
+
+            frames.push(img);
+        }
+
+        // Scroll Engine
+        function updateShowcaseOnScroll() {
+            if (!showcaseSection) return;
+
+            const rect = showcaseSection.getBoundingClientRect();
+            const sectionTop = showcaseSection.offsetTop;
+            const sectionHeight = showcaseSection.offsetHeight;
+            const viewportHeight = window.innerHeight;
+            const maxScroll = sectionHeight - viewportHeight;
+
+            if (maxScroll <= 0) return;
+
+            const currentScroll = window.scrollY - sectionTop;
+            const scrollFraction = Math.max(0, Math.min(1, currentScroll / maxScroll));
+
+            const frameIndex = Math.min(
+                totalFrames - 1,
+                Math.floor(scrollFraction * totalFrames)
+            );
+
+            if (frameIndex !== activeFrameIndex) {
+                activeFrameIndex = frameIndex;
+                if (!isRendering) {
+                    isRendering = true;
+                    requestAnimationFrame(() => {
+                        renderShowcaseFrame(activeFrameIndex);
+                        isRendering = false;
+                    });
+                }
+            }
+
+            // Update HUD
+            if (currentFrameNum) {
+                currentFrameNum.textContent = String(activeFrameIndex + 1).padStart(3, '0');
+            }
+            if (hudProgressFill) {
+                hudProgressFill.style.width = (scrollFraction * 100).toFixed(1) + '%';
+            }
+
+            // Update Active Feature Overlay Card
+            let activeFeature = 1;
+            if (scrollFraction >= 0.75) {
+                activeFeature = 4;
+            } else if (scrollFraction >= 0.50) {
+                activeFeature = 3;
+            } else if (scrollFraction >= 0.25) {
+                activeFeature = 2;
+            } else {
+                activeFeature = 1;
+            }
+
+            featureCards.forEach(card => {
+                const cardFeature = parseInt(card.dataset.feature);
+                if (cardFeature === activeFeature) {
+                    card.classList.add('active');
+                } else {
+                    card.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateShowcaseOnScroll);
+        updateShowcaseOnScroll();
+    }
 });
