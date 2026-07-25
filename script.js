@@ -591,7 +591,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 offsetY = 0;
             }
 
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            // Render glowing architectural darkroom ambient background on canvas
+            const ambientGrad = ctx.createRadialGradient(
+                canvasWidth / 2, canvasHeight * 0.45, canvasWidth * 0.05,
+                canvasWidth / 2, canvasHeight * 0.45, Math.max(canvasWidth, canvasHeight) * 0.8
+            );
+            ambientGrad.addColorStop(0, 'rgba(32, 28, 22, 1)');
+            ambientGrad.addColorStop(0.4, 'rgba(15, 14, 18, 1)');
+            ambientGrad.addColorStop(1, 'rgba(6, 6, 9, 1)');
+
+            ctx.fillStyle = ambientGrad;
+            ctx.fillRect(0, 0, canvasWidth, canvasHeight);
             ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
         }
 
