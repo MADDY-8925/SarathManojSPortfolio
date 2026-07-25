@@ -602,9 +602,9 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             if (isLightTheme) {
-                ambientGrad.addColorStop(0, 'rgba(235, 230, 220, 1)');
-                ambientGrad.addColorStop(0.5, 'rgba(245, 242, 238, 1)');
-                ambientGrad.addColorStop(1, 'rgba(247, 245, 242, 1)');
+                ambientGrad.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                ambientGrad.addColorStop(0.55, 'rgba(247, 245, 242, 1)');
+                ambientGrad.addColorStop(1, 'rgba(242, 238, 230, 1)');
             } else {
                 ambientGrad.addColorStop(0, 'rgba(26, 23, 18, 1)');
                 ambientGrad.addColorStop(0.5, 'rgba(14, 14, 14, 1)');
