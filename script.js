@@ -644,11 +644,33 @@ document.addEventListener('DOMContentLoaded', () => {
             frames.push(img);
         }
 
-        // Scroll Engine
-        function updateShowcaseOnScroll() {
-            if (!showcaseSection) return;
+        // Smooth Lerp Animation Engine for Buttery-Smooth Scroll Playback
+        let targetFrameIndex = 0;
+        let smoothFrameIndex = 0;
+        let animationFrameId = null;
 
-            const rect = showcaseSection.getBoundingClientRect();
+        function animateCanvasLoop() {
+            // Lerp smooth frame index towards target frame index with 0.08 ease factor
+            const diff = targetFrameIndex - smoothFrameIndex;
+            if (Math.abs(diff) > 0.01) {
+                smoothFrameIndex += diff * 0.08;
+                const renderIndex = Math.max(0, Math.min(totalFrames - 1, Math.round(smoothFrameIndex)));
+                if (renderIndex !== activeFrameIndex) {
+                    activeFrameIndex = renderIndex;
+                    renderShowcaseFrame(activeFrameIndex);
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(animateCanvasLoop);
+        }
+
+        // Start continuous animation loop
+        animateCanvasLoop();
+
+        // Scroll Position Calculation
+        function updateShowcaseOnScroll() {
+            if (!showcaseSection || window.innerWidth <= 1024) return;
+
             const sectionTop = showcaseSection.offsetTop;
             const sectionHeight = showcaseSection.offsetHeight;
             const viewportHeight = window.innerHeight;
@@ -659,29 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentScroll = window.scrollY - sectionTop;
             const scrollFraction = Math.max(0, Math.min(1, currentScroll / maxScroll));
 
-            const frameIndex = Math.min(
-                totalFrames - 1,
-                Math.floor(scrollFraction * totalFrames)
-            );
-
-            if (frameIndex !== activeFrameIndex) {
-                activeFrameIndex = frameIndex;
-                if (!isRendering) {
-                    isRendering = true;
-                    requestAnimationFrame(() => {
-                        renderShowcaseFrame(activeFrameIndex);
-                        isRendering = false;
-                    });
-                }
-            }
-
-            // Update HUD
-            if (currentFrameNum) {
-                currentFrameNum.textContent = String(activeFrameIndex + 1).padStart(3, '0');
-            }
-            if (hudProgressFill) {
-                hudProgressFill.style.width = (scrollFraction * 100).toFixed(1) + '%';
-            }
+            targetFrameIndex = scrollFraction * (totalFrames - 1);
 
             // Update Active Feature Overlay Card
             let activeFeature = 1;
@@ -705,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        window.addEventListener('scroll', updateShowcaseOnScroll);
+        window.addEventListener('scroll', updateShowcaseOnScroll, { passive: true });
         updateShowcaseOnScroll();
     }
 });
