@@ -398,7 +398,8 @@ img { max-width: 100%; display: block; }
 
 .nav-links {
     display: flex;
-    gap: 2.5rem;
+    align-items: center;
+    gap: 2rem;
 }
 
 .nav-link {
