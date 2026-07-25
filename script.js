@@ -625,7 +625,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ctx.fillStyle = ambientGrad;
             ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+
+            // Crop out bottom-right watermark from source image (crop right 6% and bottom 6%)
+            const cropX = 0;
+            const cropY = 0;
+            const cropWidth = imgWidth * 0.93;
+            const cropHeight = imgHeight * 0.93;
+
+            ctx.drawImage(
+                img,
+                cropX, cropY, cropWidth, cropHeight,
+                offsetX, offsetY, drawWidth, drawHeight
+            );
         }
 
         // Preload Frame Images
