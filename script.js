@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const current = document.documentElement.getAttribute('data-theme') || 'dark';
         const next = current === 'dark' ? 'light' : 'dark';
         setTheme(next);
+        if (typeof renderShowcaseFrame === 'function') {
+            setTimeout(() => renderShowcaseFrame(activeFrameIndex), 50);
+        }
     });
     // ===================== ULTRA-ELEGANT LUXURY PRELOADER =====================
     const preloader = document.getElementById('preloader');
@@ -591,14 +594,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 offsetY = 0;
             }
 
-            // Render glowing architectural darkroom ambient background on canvas
+            // Render theme-matched ambient background on canvas
+            const isLightTheme = document.body.getAttribute('data-theme') === 'light';
             const ambientGrad = ctx.createRadialGradient(
                 canvasWidth / 2, canvasHeight * 0.45, canvasWidth * 0.05,
-                canvasWidth / 2, canvasHeight * 0.45, Math.max(canvasWidth, canvasHeight) * 0.8
+                canvasWidth / 2, canvasHeight * 0.45, Math.max(canvasWidth, canvasHeight) * 0.75
             );
-            ambientGrad.addColorStop(0, 'rgba(32, 28, 22, 1)');
-            ambientGrad.addColorStop(0.4, 'rgba(15, 14, 18, 1)');
-            ambientGrad.addColorStop(1, 'rgba(6, 6, 9, 1)');
+
+            if (isLightTheme) {
+                ambientGrad.addColorStop(0, 'rgba(235, 230, 220, 1)');
+                ambientGrad.addColorStop(0.5, 'rgba(245, 242, 238, 1)');
+                ambientGrad.addColorStop(1, 'rgba(247, 245, 242, 1)');
+            } else {
+                ambientGrad.addColorStop(0, 'rgba(26, 23, 18, 1)');
+                ambientGrad.addColorStop(0.5, 'rgba(14, 14, 14, 1)');
+                ambientGrad.addColorStop(1, 'rgba(10, 10, 10, 1)');
+            }
 
             ctx.fillStyle = ambientGrad;
             ctx.fillRect(0, 0, canvasWidth, canvasHeight);
