@@ -2251,17 +2251,79 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 768px) {
-    .showcase-feature-card {
-        padding: 1.8rem;
+    .showcase-sticky-wrapper {
+        height: 100dvh;
     }
+
     .showcase-header-badge {
-        font-size: 0.65rem;
-        top: 1.2rem;
-        left: 3%;
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 0.4rem 0.9rem;
+        white-space: nowrap;
+        background: rgba(10, 10, 10, 0.75);
     }
+
     .showcase-scroll-hud {
-        bottom: 1.2rem;
-        right: 3%;
-        padding: 0.6rem 1rem;
+        bottom: 0.8rem;
+        right: 0.8rem;
+        left: 0.8rem;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0.5rem 0.9rem;
+        background: rgba(10, 10, 10, 0.75);
+    }
+
+    .hud-progress-bar {
+        width: 80px;
+    }
+
+    .showcase-text-container {
+        width: 92%;
+        position: absolute;
+        bottom: 3.8rem;
+        top: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .showcase-feature-card {
+        top: auto;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(20px) scale(0.96);
+        padding: 1.25rem 1.4rem;
+        border-radius: 16px;
+        background: rgba(10, 10, 10, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    .showcase-feature-card.active {
+        transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .feature-tag {
+        font-size: 0.65rem;
+        letter-spacing: 2px;
+        margin-bottom: 0.4rem;
+    }
+
+    .feature-title {
+        font-size: 1.15rem;
+        line-height: 1.25;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+        font-size: 0.82rem;
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 }

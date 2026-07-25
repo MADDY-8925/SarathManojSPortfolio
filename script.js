@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.addEventListener('resize', resizeShowcaseCanvas);
 
-        // Draw Image to Canvas with Cover Scaling
+        // Draw Image to Canvas with Smart Mobile & Desktop Scaling
         function renderShowcaseFrame(index) {
             const img = frames[index];
             if (!img || !img.complete) return;
@@ -568,10 +568,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const imgRatio = imgWidth / imgHeight;
             const canvasRatio = canvasWidth / canvasHeight;
+            const isMobile = canvasWidth <= 768;
 
             let drawWidth, drawHeight, offsetX, offsetY;
 
-            if (canvasRatio > imgRatio) {
+            if (isMobile) {
+                // Mobile Portrait framing: scale image to fit nicely in top 65% of screen
+                const scale = Math.min(canvasWidth / imgWidth, (canvasHeight * 0.7) / imgHeight) * 1.15;
+                drawWidth = imgWidth * scale;
+                drawHeight = imgHeight * scale;
+                offsetX = (canvasWidth - drawWidth) / 2;
+                offsetY = (canvasHeight * 0.45) - (drawHeight / 2);
+            } else if (canvasRatio > imgRatio) {
                 drawWidth = canvasWidth;
                 drawHeight = canvasWidth / imgRatio;
                 offsetX = 0;
