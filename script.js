@@ -626,17 +626,28 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.fillStyle = ambientGrad;
             ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
-            // Crop out bottom-right watermark from source image (crop right 6% and bottom 6%)
-            const cropX = 0;
-            const cropY = 0;
-            const cropWidth = imgWidth * 0.93;
-            const cropHeight = imgHeight * 0.93;
+            // Draw image at normal original scale
+            ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
 
-            ctx.drawImage(
-                img,
-                cropX, cropY, cropWidth, cropHeight,
-                offsetX, offsetY, drawWidth, drawHeight
-            );
+            // Soft corner patch over bottom-right watermark without enlarging/zooming the image
+            const patchWidth = drawWidth * 0.12;
+            const patchHeight = drawHeight * 0.08;
+            const patchX = offsetX + drawWidth - patchWidth;
+            const patchY = offsetY + drawHeight - patchHeight;
+
+            if (patchX > 0 && patchY > 0) {
+                const patchGrad = ctx.createRadialGradient(
+                    patchX + patchWidth * 0.6, patchY + patchHeight * 0.6, 0,
+                    patchX + patchWidth * 0.6, patchY + patchHeight * 0.6, Math.max(patchWidth, patchHeight)
+                );
+                const baseBgColor = isLightTheme ? 'rgba(247, 245, 242, 0.98)' : 'rgba(10, 10, 10, 0.98)';
+                patchGrad.addColorStop(0, baseBgColor);
+                patchGrad.addColorStop(0.6, baseBgColor);
+                patchGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+                ctx.fillStyle = patchGrad;
+                ctx.fillRect(patchX, patchY, patchWidth, patchHeight);
+            }
         }
 
         // Preload Frame Images
