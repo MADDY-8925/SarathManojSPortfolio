@@ -26,6 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => renderShowcaseFrame(activeFrameIndex), 50);
         }
     });
+
+    const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+    if (mobileThemeToggle) {
+        mobileThemeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            setTheme(next);
+            if (typeof renderShowcaseFrame === 'function') {
+                setTimeout(() => renderShowcaseFrame(activeFrameIndex), 50);
+            }
+        });
+    }
     // ===================== ULTRA-ELEGANT LUXURY PRELOADER =====================
     const preloader = document.getElementById('preloader');
     const loaderBar = document.getElementById('loaderBar');
