@@ -644,16 +644,15 @@ document.addEventListener('DOMContentLoaded', () => {
             frames.push(img);
         }
 
-        // Smooth Lerp Animation Engine for Buttery-Smooth Scroll Playback
+        // High-Precision 120 FPS Lerp Animation Engine
         let targetFrameIndex = 0;
         let smoothFrameIndex = 0;
-        let animationFrameId = null;
 
         function animateCanvasLoop() {
-            // Lerp smooth frame index towards target frame index with 0.08 ease factor
+            // Lerp smooth frame index towards target with 0.18 ease factor for 120 FPS ProMotion/144Hz displays
             const diff = targetFrameIndex - smoothFrameIndex;
-            if (Math.abs(diff) > 0.01) {
-                smoothFrameIndex += diff * 0.08;
+            if (Math.abs(diff) > 0.005) {
+                smoothFrameIndex += diff * 0.18;
                 const renderIndex = Math.max(0, Math.min(totalFrames - 1, Math.round(smoothFrameIndex)));
                 if (renderIndex !== activeFrameIndex) {
                     activeFrameIndex = renderIndex;
@@ -661,7 +660,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            animationFrameId = requestAnimationFrame(animateCanvasLoop);
+            requestAnimationFrame(animateCanvasLoop);
         }
 
         // Start continuous animation loop

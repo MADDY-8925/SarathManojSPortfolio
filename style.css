@@ -2075,11 +2075,86 @@ img { max-width: 100%; display: block; }
 .showcase-overlay-gradient {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.15) 75%, var(--bg-primary) 100%),
-                linear-gradient(to bottom, var(--bg-primary) 0%, rgba(0,0,0,0.02) 15%, transparent 30%, transparent 70%, rgba(0,0,0,0.02) 85%, var(--bg-primary) 100%);
+    background: radial-gradient(circle at 50% 50%, transparent 60%, var(--bg-primary) 100%);
     z-index: 2;
     pointer-events: none;
-    transition: background 0.5s ease;
+}
+
+/* High-Tech Architectural Laser Scanner & Viewfinder Overlay */
+.showcase-viewfinder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(85vw, 900px);
+    height: min(75vh, 600px);
+    pointer-events: none;
+    z-index: 3;
+}
+
+.viewfinder-corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border-color: var(--gold);
+    opacity: 0.6;
+}
+
+.vf-tl { top: 0; left: 0; border-top: 2px solid; border-left: 2px solid; }
+.vf-tr { top: 0; right: 0; border-top: 2px solid; border-right: 2px solid; }
+.vf-bl { bottom: 0; left: 0; border-bottom: 2px solid; border-left: 2px solid; }
+.vf-br { bottom: 0; right: 0; border-bottom: 2px solid; border-right: 2px solid; }
+
+.viewfinder-crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0.3;
+}
+
+.viewfinder-crosshair::before,
+.viewfinder-crosshair::after {
+    content: '';
+    position: absolute;
+    background: var(--gold);
+}
+
+.viewfinder-crosshair::before {
+    top: 9px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+}
+
+.viewfinder-crosshair::after {
+    left: 9px;
+    top: 0;
+    height: 100%;
+    width: 2px;
+}
+
+/* Animated Golden Architectural Laser Scan Line */
+.showcase-laser-scanner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+    box-shadow: 0 0 15px var(--gold);
+    opacity: 0.45;
+    z-index: 3;
+    pointer-events: none;
+    animation: laserScan 6s infinite linear;
+}
+
+@keyframes laserScan {
+    0% { top: 10%; opacity: 0.2; }
+    50% { top: 90%; opacity: 0.6; }
+    100% { top: 10%; opacity: 0.2; }
 }
 
 .showcase-header-badge {
