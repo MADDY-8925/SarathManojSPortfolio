@@ -2075,12 +2075,13 @@ img { max-width: 100%; display: block; }
 .showcase-overlay-gradient {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 50% 50%, transparent 60%, var(--bg-primary) 100%);
+    background: radial-gradient(ellipse 75% 75% at 50% 50%, transparent 45%, var(--bg-primary) 100%);
     z-index: 2;
     pointer-events: none;
+    transition: background 0.5s ease;
 }
 
-/* High-Tech Architectural Laser Scanner & Viewfinder Overlay */
+/* High-Tech Architectural Viewfinder Overlay */
 .showcase-viewfinder {
     position: absolute;
     top: 50%;
@@ -2134,27 +2135,6 @@ img { max-width: 100%; display: block; }
     top: 0;
     height: 100%;
     width: 2px;
-}
-
-/* Animated Golden Architectural Laser Scan Line */
-.showcase-laser-scanner {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
-    box-shadow: 0 0 15px var(--gold);
-    opacity: 0.45;
-    z-index: 3;
-    pointer-events: none;
-    animation: laserScan 6s infinite linear;
-}
-
-@keyframes laserScan {
-    0% { top: 10%; opacity: 0.2; }
-    50% { top: 90%; opacity: 0.6; }
-    100% { top: 10%; opacity: 0.2; }
 }
 
 .showcase-header-badge {
