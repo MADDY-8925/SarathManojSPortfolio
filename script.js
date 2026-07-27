@@ -360,6 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================== INTERACTIVE ARCHITECTURAL AUDIO ENGINE =====================
     let audioCtx = null;
     let soundEnabled = localStorage.getItem('portfolio-sound') === 'enabled';
+    let masterVolume = parseFloat(localStorage.getItem('portfolio-volume') || '0.5');
 
     function initAudio() {
         if (!audioCtx) {
@@ -374,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function playClickSound() {
-        if (!soundEnabled) return;
+        if (!soundEnabled || masterVolume <= 0) return;
         initAudio();
         if (!audioCtx) return;
 
@@ -386,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
             osc.frequency.setValueAtTime(420, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.04);
 
-            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.12 * masterVolume, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
 
             osc.connect(gain);
@@ -398,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function playHoverSound() {
-        if (!soundEnabled) return;
+        if (!soundEnabled || masterVolume <= 0) return;
         initAudio();
         if (!audioCtx) return;
 
@@ -410,7 +411,7 @@ document.addEventListener('DOMContentLoaded', () => {
             osc.frequency.setValueAtTime(280, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(360, audioCtx.currentTime + 0.08);
 
-            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.setValueAtTime(0.04 * masterVolume, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
 
             osc.connect(gain);
@@ -422,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function playSectionChime() {
-        if (!soundEnabled) return;
+        if (!soundEnabled || masterVolume <= 0) return;
         initAudio();
         if (!audioCtx) return;
 
@@ -435,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.06);
 
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime + i * 0.06);
+                gain.gain.setValueAtTime(0.05 * masterVolume, audioCtx.currentTime + i * 0.06);
                 gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35 + i * 0.06);
 
                 osc.connect(gain);
@@ -449,13 +450,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const soundToggle = document.getElementById('soundToggle');
     const mobileSoundToggle = document.getElementById('mobileSoundToggle');
+    const volumeInput = document.getElementById('volumeInput');
+    const volumePercent = document.getElementById('volumePercent');
 
     function updateSoundUI() {
         const offIcons = document.querySelectorAll('.sound-off-icon');
         const onIcons = document.querySelectorAll('.sound-on-icon');
         const textElements = document.querySelectorAll('.sound-btn-text');
 
-        if (soundEnabled) {
+        if (soundEnabled && masterVolume > 0) {
             offIcons.forEach(ic => ic.style.display = 'none');
             onIcons.forEach(ic => ic.style.display = 'inline-block');
             textElements.forEach(tx => tx.textContent = 'Audio: Active 🔊');
@@ -464,28 +467,46 @@ document.addEventListener('DOMContentLoaded', () => {
             onIcons.forEach(ic => ic.style.display = 'none');
             textElements.forEach(tx => tx.textContent = 'Audio: Muted');
         }
+
+        if (volumeInput) volumeInput.value = masterVolume;
+        if (volumePercent) volumePercent.textContent = `${Math.round(masterVolume * 100)}%`;
     }
 
-    function toggleAudio() {
+    function toggleAudio(e) {
+        if (e) e.stopPropagation();
         soundEnabled = !soundEnabled;
         localStorage.setItem('portfolio-sound', soundEnabled ? 'enabled' : 'disabled');
         updateSoundUI();
-        if (soundEnabled) {
-            playSectionChime();
-        }
     }
 
     if (soundToggle) soundToggle.addEventListener('click', toggleAudio);
     if (mobileSoundToggle) mobileSoundToggle.addEventListener('click', toggleAudio);
+
+    if (volumeInput) {
+        volumeInput.addEventListener('input', (e) => {
+            masterVolume = parseFloat(e.target.value);
+            soundEnabled = masterVolume > 0;
+            localStorage.setItem('portfolio-volume', masterVolume);
+            localStorage.setItem('portfolio-sound', soundEnabled ? 'enabled' : 'disabled');
+            updateSoundUI();
+        });
+        volumeInput.addEventListener('click', (e) => e.stopPropagation());
+    }
+
     updateSoundUI();
 
+    // Global click listener excluding sound controls (SILENT sound button clicks)
     document.addEventListener('click', (e) => {
+        if (e.target.closest('#soundToggle, #mobileSoundToggle, .sound-toggle, .sound-control-wrapper, .volume-input, .volume-slider-bar')) {
+            return;
+        }
         if (e.target.closest('a, button, .project-card, .filter-btn, .nav-link, .mobile-link')) {
             playClickSound();
         }
     });
 
     document.querySelectorAll('a, button, .project-card, .filter-btn, .nav-link').forEach(el => {
+        if (el.closest('.sound-control-wrapper, #soundToggle, #mobileSoundToggle, .sound-toggle')) return;
         el.addEventListener('mouseenter', () => {
             playHoverSound();
         });
