@@ -329,6 +329,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
             projectCards.forEach((card, index) => {
                 const category = card.dataset.category || '';
+                const onlyFilter = card.dataset.onlyFilter;
+
+                if (onlyFilter) {
+                    if (filter === onlyFilter) {
+                        card.style.transitionDelay = `${index * 0.05}s`;
+                        card.classList.remove('hidden');
+                        card.classList.add('visible');
+                    } else {
+                        card.style.transitionDelay = '0s';
+                        card.classList.add('hidden');
+                        card.classList.remove('visible');
+                    }
+                    return;
+                }
+
                 if (filter === 'all' || category.includes(filter)) {
                     card.style.transitionDelay = `${index * 0.05}s`;
                     card.classList.remove('hidden');
