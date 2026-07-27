@@ -469,6 +469,27 @@ img { max-width: 100%; display: block; }
     transform: translate(2px, -2px);
 }
 
+.sound-toggle {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sound-toggle:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 12px rgba(201, 169, 110, 0.3);
+    transform: scale(1.08);
+}
+
 .nav-toggle {
     display: none;
     background: none;

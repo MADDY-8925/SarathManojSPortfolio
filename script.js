@@ -357,7 +357,139 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===================== CONTACT FORM =====================
+    // ===================== INTERACTIVE ARCHITECTURAL AUDIO ENGINE =====================
+    let audioCtx = null;
+    let soundEnabled = localStorage.getItem('portfolio-sound') === 'enabled';
+
+    function initAudio() {
+        if (!audioCtx) {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioContextClass) {
+                audioCtx = new AudioContextClass();
+            }
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    function playClickSound() {
+        if (!soundEnabled) return;
+        initAudio();
+        if (!audioCtx) return;
+
+        try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(420, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.04);
+
+            gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.04);
+        } catch (e) {}
+    }
+
+    function playHoverSound() {
+        if (!soundEnabled) return;
+        initAudio();
+        if (!audioCtx) return;
+
+        try {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(280, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(360, audioCtx.currentTime + 0.08);
+
+            gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.08);
+        } catch (e) {}
+    }
+
+    function playSectionChime() {
+        if (!soundEnabled) return;
+        initAudio();
+        if (!audioCtx) return;
+
+        try {
+            const freqs = [523.25, 659.25];
+            freqs.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.06);
+
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime + i * 0.06);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35 + i * 0.06);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start(audioCtx.currentTime + i * 0.06);
+                osc.stop(audioCtx.currentTime + 0.35 + i * 0.06);
+            });
+        } catch (e) {}
+    }
+
+    const soundToggle = document.getElementById('soundToggle');
+    const mobileSoundToggle = document.getElementById('mobileSoundToggle');
+
+    function updateSoundUI() {
+        const offIcons = document.querySelectorAll('.sound-off-icon');
+        const onIcons = document.querySelectorAll('.sound-on-icon');
+        const textElements = document.querySelectorAll('.sound-btn-text');
+
+        if (soundEnabled) {
+            offIcons.forEach(ic => ic.style.display = 'none');
+            onIcons.forEach(ic => ic.style.display = 'inline-block');
+            textElements.forEach(tx => tx.textContent = 'Audio: Active 🔊');
+        } else {
+            offIcons.forEach(ic => ic.style.display = 'inline-block');
+            onIcons.forEach(ic => ic.style.display = 'none');
+            textElements.forEach(tx => tx.textContent = 'Audio: Muted');
+        }
+    }
+
+    function toggleAudio() {
+        soundEnabled = !soundEnabled;
+        localStorage.setItem('portfolio-sound', soundEnabled ? 'enabled' : 'disabled');
+        updateSoundUI();
+        if (soundEnabled) {
+            playSectionChime();
+        }
+    }
+
+    if (soundToggle) soundToggle.addEventListener('click', toggleAudio);
+    if (mobileSoundToggle) mobileSoundToggle.addEventListener('click', toggleAudio);
+    updateSoundUI();
+
+    document.addEventListener('click', (e) => {
+        if (e.target.closest('a, button, .project-card, .filter-btn, .nav-link, .mobile-link')) {
+            playClickSound();
+        }
+    });
+
+    document.querySelectorAll('a, button, .project-card, .filter-btn, .nav-link').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            playHoverSound();
+        });
+    });
     const contactForm = document.getElementById('contactForm');
     const submitBtn = document.getElementById('formSubmit');
 
