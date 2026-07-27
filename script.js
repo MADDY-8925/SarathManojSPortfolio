@@ -357,7 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===================== INTERACTIVE ARCHITECTURAL AUDIO ENGINE =====================
+    // ===================== ULTRA-SOOTHING ARCHITECTURAL AUDIO ENGINE =====================
     let audioCtx = null;
     let soundEnabled = localStorage.getItem('portfolio-sound') === 'enabled';
     let masterVolume = parseFloat(localStorage.getItem('portfolio-volume') || '0.5');
@@ -374,30 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function playClickSound() {
-        if (!soundEnabled || masterVolume <= 0) return;
-        initAudio();
-        if (!audioCtx) return;
-
-        try {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(420, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.04);
-
-            gain.gain.setValueAtTime(0.12 * masterVolume, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.04);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start();
-            osc.stop(audioCtx.currentTime + 0.04);
-        } catch (e) {}
-    }
-
+    // Ultra-soft pleasing ambient hover shimmer (E4 - A4 warmth)
     function playHoverSound() {
         if (!soundEnabled || masterVolume <= 0) return;
         initAudio();
@@ -408,42 +385,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const gain = audioCtx.createGain();
 
             osc.type = 'sine';
-            osc.frequency.setValueAtTime(280, audioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(360, audioCtx.currentTime + 0.08);
+            osc.frequency.setValueAtTime(329.63, audioCtx.currentTime); // E4 warm note
+            osc.frequency.exponentialRampToValueAtTime(440.00, audioCtx.currentTime + 0.12); // A4 warm resolution
 
-            gain.gain.setValueAtTime(0.04 * masterVolume, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+            gain.gain.setValueAtTime(0.015 * masterVolume, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.18);
 
             osc.connect(gain);
             gain.connect(audioCtx.destination);
 
             osc.start();
-            osc.stop(audioCtx.currentTime + 0.08);
+            osc.stop(audioCtx.currentTime + 0.18);
         } catch (e) {}
     }
 
+    // Soothing Luxury Ambient Harmonic Chime (E4 - A4 - C#5 Major Triad)
     function playSectionChime() {
         if (!soundEnabled || masterVolume <= 0) return;
         initAudio();
         if (!audioCtx) return;
 
         try {
-            const freqs = [523.25, 659.25];
+            const freqs = [329.63, 440.00, 554.37]; // Soothing warm major triad
             freqs.forEach((freq, i) => {
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
 
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.06);
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.08);
 
-                gain.gain.setValueAtTime(0.05 * masterVolume, audioCtx.currentTime + i * 0.06);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35 + i * 0.06);
+                gain.gain.setValueAtTime(0.02 * masterVolume, audioCtx.currentTime + i * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.6 + i * 0.08);
 
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
 
-                osc.start(audioCtx.currentTime + i * 0.06);
-                osc.stop(audioCtx.currentTime + 0.35 + i * 0.06);
+                osc.start(audioCtx.currentTime + i * 0.08);
+                osc.stop(audioCtx.currentTime + 0.6 + i * 0.08);
             });
         } catch (e) {}
     }
@@ -495,15 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateSoundUI();
 
-    // Global click listener excluding sound controls (SILENT sound button clicks)
-    document.addEventListener('click', (e) => {
-        if (e.target.closest('#soundToggle, #mobileSoundToggle, .sound-toggle, .sound-control-wrapper, .volume-input, .volume-slider-bar')) {
-            return;
-        }
-        if (e.target.closest('a, button, .project-card, .filter-btn, .nav-link, .mobile-link')) {
-            playClickSound();
-        }
-    });
+    // ALL CLICKS ARE 100% SILENT (Click sound removed)
 
     document.querySelectorAll('a, button, .project-card, .filter-btn, .nav-link').forEach(el => {
         if (el.closest('.sound-control-wrapper, #soundToggle, #mobileSoundToggle, .sound-toggle')) return;
