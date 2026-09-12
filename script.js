@@ -751,6 +751,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     aboutCaption.style.opacity = '1';
                 }, 300);
             }
-        }, 5000);
+        }, 3000);
     }
 });
