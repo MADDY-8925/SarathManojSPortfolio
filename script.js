@@ -5,7 +5,11 @@
 
 // Initialize theme before DOM renders to prevent flash
 (function() {
-    const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    let savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    if (savedTheme === 'genz') {
+        savedTheme = 'dark';
+        localStorage.setItem('portfolio-theme', 'dark');
+    }
     document.documentElement.setAttribute('data-theme', savedTheme);
 })();
 
