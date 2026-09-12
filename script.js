@@ -728,4 +728,29 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', updateShowcaseOnScroll, { passive: true });
         updateShowcaseOnScroll();
     }
+
+    // ===================== ABOUT SECTION SLIDESHOW (5s INTERVAL) =====================
+    const aboutImages = document.querySelectorAll('#aboutImageWrapper .about-image');
+    const aboutCaption = document.getElementById('aboutImageCaption');
+
+    if (aboutImages.length > 0) {
+        let currentAboutIndex = 0;
+
+        setInterval(() => {
+            const prevIndex = currentAboutIndex;
+            currentAboutIndex = (currentAboutIndex + 1) % aboutImages.length;
+
+            aboutImages[prevIndex].classList.remove('active');
+            aboutImages[currentAboutIndex].classList.add('active');
+
+            const nextCaption = aboutImages[currentAboutIndex].getAttribute('data-caption');
+            if (aboutCaption && nextCaption) {
+                aboutCaption.style.opacity = '0';
+                setTimeout(() => {
+                    aboutCaption.innerHTML = nextCaption;
+                    aboutCaption.style.opacity = '1';
+                }, 300);
+            }
+        }, 5000);
+    }
 });

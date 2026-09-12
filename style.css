@@ -873,18 +873,33 @@ img { max-width: 100%; display: block; }
 .fc-br { bottom: 0; right: 0; border-bottom: 2px solid var(--gold); border-right: 2px solid var(--gold); }
 
 .about-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px;
     overflow: hidden;
     border-radius: 8px;
 }
 
 .about-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 400px;
+    height: 100%;
     object-fit: cover;
-    transition: transform 0.8s var(--transition-smooth);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.04);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out, visibility 1s ease-in-out;
 }
 
-.about-image-frame:hover .about-image {
+.about-image.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.about-image-frame:hover .about-image.active {
     transform: scale(1.05);
 }
 
@@ -894,6 +909,7 @@ img { max-width: 100%; display: block; }
     font-size: 0.8rem;
     color: var(--text-muted);
     letter-spacing: 1px;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .about-text p {
