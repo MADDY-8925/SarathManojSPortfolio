@@ -1145,16 +1145,27 @@ img { max-width: 100%; display: block; }
 }
 
 .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
     gap: 2rem;
-    justify-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .project-card {
+    flex: 0 0 calc(33.333% - 1.4rem);
+    max-width: 380px;
+    min-width: 280px;
+    box-sizing: border-box;
     transition: opacity 0.5s ease, transform 0.5s ease;
     text-align: center;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
 }
 
 .project-card.hidden {
@@ -2133,19 +2144,22 @@ img { max-width: 100%; display: block; }
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 2rem;
         width: 100%;
-        max-width: 420px;
+        max-width: 400px;
         margin: 0 auto;
     }
 
     .project-card {
+        flex: 1 1 100%;
         width: 100%;
         max-width: 100%;
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         margin: 0 auto;
     }
 
@@ -2158,6 +2172,7 @@ img { max-width: 100%; display: block; }
         overflow: hidden;
         position: relative;
         margin: 0 auto;
+        display: block;
     }
 
     .project-image {
@@ -2166,6 +2181,7 @@ img { max-width: 100%; display: block; }
         object-fit: cover;
         object-position: center;
         display: block;
+        margin: 0 auto;
     }
 
     .project-info {
@@ -2176,6 +2192,7 @@ img { max-width: 100%; display: block; }
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        margin: 0 auto;
     }
 
     .project-info h3 {
