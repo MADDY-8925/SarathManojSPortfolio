@@ -853,7 +853,7 @@ img { max-width: 100%; display: block; }
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 4rem;
-    align-items: center;
+    align-items: start;
 }
 
 .about-image-frame {
@@ -878,7 +878,7 @@ img { max-width: 100%; display: block; }
 .about-image-wrapper {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1024 / 689;
     max-height: 420px;
     overflow: hidden;
     border-radius: 8px;
