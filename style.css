@@ -1862,11 +1862,13 @@ img { max-width: 100%; display: block; }
     .preloader-inner {
         padding: 1.5rem 1rem;
         max-width: 90%;
+        text-align: center;
     }
 
     .luxury-emblem {
         gap: 0.8rem;
         margin-bottom: 1.2rem;
+        justify-content: center;
     }
 
     .emblem-line {
@@ -1876,23 +1878,27 @@ img { max-width: 100%; display: block; }
     .emblem-initials {
         font-size: 0.7rem;
         letter-spacing: 4px;
+        text-align: center;
     }
 
     .luxury-title {
         font-size: clamp(1.3rem, 5.5vw, 2.2rem);
         letter-spacing: 6px;
         margin-bottom: 0.4rem;
+        text-align: center;
     }
 
     .luxury-subtitle {
         font-size: 0.62rem;
         letter-spacing: 3px;
         margin-bottom: 2rem;
+        text-align: center;
     }
 
     .luxury-progress-track {
         max-width: 160px;
         height: 1.5px;
+        margin: 0 auto;
     }
 
     .nav-links { display: none; }
@@ -1900,16 +1906,36 @@ img { max-width: 100%; display: block; }
 
     .hero-section { height: 100svh; }
 
+    .hero-content {
+        text-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .hero-tag {
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-name {
+        text-align: center;
+    }
+
     .name-line {
         font-size: clamp(2.2rem, 8.5vw, 3.4rem);
         letter-spacing: 2px;
+        text-align: center;
     }
 
     .hero-subtitle {
         flex-direction: row;
         flex-wrap: wrap;
         align-items: center;
+        justify-content: center;
         gap: 0.4rem 0.6rem;
+        text-align: center;
     }
 
     .subtitle-role {
@@ -1923,8 +1949,14 @@ img { max-width: 100%; display: block; }
         opacity: 0.7;
     }
 
+    .hero-location {
+        justify-content: center;
+        text-align: center;
+    }
+
     .section {
         padding: 3.5rem 0;
+        text-align: center;
     }
 
     .section-container {
@@ -1934,11 +1966,20 @@ img { max-width: 100%; display: block; }
     .section-label {
         margin-bottom: 1.5rem;
         gap: 1rem;
+        justify-content: center;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .section-title {
         font-size: clamp(1.6rem, 6vw, 2.2rem);
         margin-bottom: 1.5rem;
+        text-align: center;
+    }
+
+    .section-title::after {
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .about-grid {
@@ -1946,8 +1987,16 @@ img { max-width: 100%; display: block; }
         gap: 1.8rem;
     }
 
+    .about-content {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .about-image-frame {
         padding: 0.8rem;
+        margin: 0 auto;
     }
 
     .about-image-wrapper {
@@ -1962,13 +2011,14 @@ img { max-width: 100%; display: block; }
         letter-spacing: 0.5px;
         min-height: 1.8rem;
         height: 1.8rem;
+        text-align: center;
     }
 
     .about-text p {
         font-size: 0.88rem;
         line-height: 1.65;
         margin-bottom: 0.8rem;
-        text-align: left;
+        text-align: center;
     }
 
     .about-stats {
@@ -1978,6 +2028,12 @@ img { max-width: 100%; display: block; }
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+        width: 100%;
+        text-align: center;
+    }
+
+    .stat-item {
+        text-align: center;
     }
 
     .stat-number {
@@ -1990,6 +2046,7 @@ img { max-width: 100%; display: block; }
 
     .stat-label {
         font-size: 0.7rem;
+        text-align: center;
     }
 
     .timeline-item,
@@ -2023,8 +2080,10 @@ img { max-width: 100%; display: block; }
         overflow-x: auto;
         padding-bottom: 0.5rem;
         flex-wrap: nowrap;
-        justify-content: flex-start;
+        justify-content: center;
         -webkit-overflow-scrolling: touch;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .filter-btn {
@@ -2043,14 +2102,27 @@ img { max-width: 100%; display: block; }
         height: 220px;
     }
 
+    .project-info {
+        text-align: center;
+    }
+
     .skills-grid {
         grid-template-columns: 1fr;
         gap: 2.2rem;
     }
 
+    .skills-title {
+        text-align: center;
+    }
+
     .software-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 0.8rem;
+        justify-items: center;
+    }
+
+    .expertise-tags {
+        justify-content: center;
     }
 
     .languages-grid {
@@ -2066,20 +2138,53 @@ img { max-width: 100%; display: block; }
         gap: 1.8rem;
     }
 
+    .contact-info {
+        text-align: center;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-intro {
+        text-align: center;
+    }
+
+    .contact-details {
+        align-items: center;
+        width: 100%;
+    }
+
+    .contact-item {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .contact-form-wrapper {
+        text-align: center;
+    }
+
     .contact-form {
         padding: 1.5rem 1.25rem;
+        text-align: center;
     }
 
     .section-indicator { display: none; }
 
     .footer {
         padding: 2.5rem 0 1.5rem;
+        text-align: center;
+    }
+
+    .footer-top {
+        text-align: center;
     }
 
     .footer-bottom {
         flex-direction: column;
         gap: 1rem;
         text-align: center;
+        align-items: center;
+        justify-content: center;
     }
 }
 
