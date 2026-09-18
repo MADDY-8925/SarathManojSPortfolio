@@ -2016,9 +2016,12 @@ img { max-width: 100%; display: block; }
 
     .about-text p {
         font-size: 0.88rem;
-        line-height: 1.65;
-        margin-bottom: 0.8rem;
-        text-align: center;
+        line-height: 1.7;
+        margin-bottom: 0.9rem;
+        letter-spacing: 0.1px;
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
     }
 
     .about-stats {
