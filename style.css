@@ -2001,17 +2001,27 @@ img { max-width: 100%; display: block; }
 
     .about-image-wrapper {
         height: 240px;
+        min-height: 240px;
         max-height: 240px;
         border-radius: 6px;
     }
 
     .image-caption {
         margin-top: 0.8rem;
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         letter-spacing: 0.5px;
-        min-height: 1.8rem;
-        height: 1.8rem;
+        min-height: 2.2rem;
+        height: 2.2rem;
+        max-height: 2.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         text-align: center;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .about-text p {
@@ -2196,6 +2206,7 @@ img { max-width: 100%; display: block; }
     
     .about-image-wrapper {
         height: 210px;
+        min-height: 210px;
         max-height: 210px;
     }
 
