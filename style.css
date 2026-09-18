@@ -859,12 +859,15 @@ img { max-width: 100%; display: block; }
 .about-image-frame {
     position: relative;
     padding: 1.5rem;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .frame-corner {
     position: absolute;
     width: 30px;
     height: 30px;
+    pointer-events: none;
 }
 
 .fc-tl { top: 0; left: 0; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
@@ -875,22 +878,24 @@ img { max-width: 100%; display: block; }
 .about-image-wrapper {
     position: relative;
     width: 100%;
-    height: 400px;
+    aspect-ratio: 4 / 3;
+    max-height: 420px;
     overflow: hidden;
     border-radius: 8px;
+    background: var(--bg-tertiary);
 }
 
 .about-image {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     opacity: 0;
     visibility: hidden;
-    transform: scale(1.04);
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out, visibility 1s ease-in-out;
+    transform: scale(1.03);
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out, visibility 0.8s ease-in-out;
 }
 
 .about-image.active {
@@ -900,15 +905,23 @@ img { max-width: 100%; display: block; }
 }
 
 .about-image-frame:hover .about-image.active {
-    transform: scale(1.05);
+    transform: scale(1.04);
 }
 
 .image-caption {
     text-align: center;
-    padding-top: 1rem;
-    font-size: 0.8rem;
+    margin-top: 1rem;
+    min-height: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
     color: var(--text-muted);
     letter-spacing: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     transition: opacity 0.3s ease-in-out;
 }
 
