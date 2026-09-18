@@ -898,6 +898,14 @@ img { max-width: 100%; display: block; }
     transition: opacity 1s ease-in-out, transform 1s ease-in-out, visibility 1s ease-in-out;
 }
 
+.about-image.fit-foyer {
+    object-position: center 38%;
+}
+
+.about-image.fit-zen {
+    object-position: center 35%;
+}
+
 .about-image.active {
     opacity: 1;
     visibility: visible;
