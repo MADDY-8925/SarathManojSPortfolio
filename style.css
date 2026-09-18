@@ -882,7 +882,9 @@ img { max-width: 100%; display: block; }
     max-height: 420px;
     overflow: hidden;
     border-radius: 8px;
-    background: var(--bg-tertiary);
+    background: rgba(12, 12, 12, 0.85);
+    border: 1px solid var(--glass-border);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .about-image {
@@ -890,22 +892,20 @@ img { max-width: 100%; display: block; }
     inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     opacity: 0;
     visibility: hidden;
-    transform: scale(1.03);
     transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out, visibility 0.8s ease-in-out;
 }
 
 .about-image.active {
     opacity: 1;
     visibility: visible;
-    transform: scale(1);
 }
 
 .about-image-frame:hover .about-image.active {
-    transform: scale(1.04);
+    transform: scale(1.02);
 }
 
 .image-caption {
