@@ -947,7 +947,7 @@ img { max-width: 100%; display: block; }
 
 .about-text strong {
     color: var(--text-primary);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 /* Stats */
